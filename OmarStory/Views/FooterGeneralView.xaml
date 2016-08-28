@@ -13,7 +13,7 @@
 
         <Image Grid.Column="0" x:Name="ImageActiveChar">
         </Image>
-        <TextBlock Grid.Column="1" x:Name="CurrentText" Background="White" TextWrapping="Wrap" >
+        <TextBlock Grid.Column="1" x:Name="CurrentText" Background="#FFD3F2F3" TextWrapping="Wrap">
         </TextBlock>
     </Grid>
 </UserControl>
