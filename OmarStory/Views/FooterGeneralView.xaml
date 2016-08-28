@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="1024">
+             mc:Ignorable="d" DataContext="{Binding}"
+             d:DesignHeight="200" d:DesignWidth="1024" Loaded="UserControl_Loaded_1">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -13,7 +13,16 @@
 
         <Image Grid.Column="0" x:Name="ImageActiveChar">
         </Image>
-        <TextBlock Grid.Column="1" x:Name="CurrentText" Background="#FFD3F2F3" TextWrapping="Wrap">
-        </TextBlock>
+        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" x:Name="CurrentCharName" Text="{Binding CurrentChar.Name}" Background="Black" Foreground="White" FontWeight="Bold" FontSize="18" FontFamily="Segoe Script">
+            </TextBlock>
+            <TextBlock Grid.Row="1" x:Name="CurrentText" Background="#FFD3F2F3" TextWrapping="Wrap">
+            </TextBlock>
+        </Grid>
     </Grid>
 </UserControl>

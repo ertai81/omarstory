@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmarStory.ViewModels
 {
-    public class FooterGeneralViewModel
+    public class FooterGeneralViewModel : ViewModelBase
     {
        
     }
