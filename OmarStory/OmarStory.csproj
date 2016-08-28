@@ -68,6 +68,7 @@
     <Compile Include="Char.cs">
       <DependentUpon>OmarStoryDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Converters\Converters.cs" />
     <Compile Include="OmarStoryDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,6 +84,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OmarStoryDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\CharImagesList.cs" />
     <Compile Include="Resources\Images.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,6 +185,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\omar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inaki.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

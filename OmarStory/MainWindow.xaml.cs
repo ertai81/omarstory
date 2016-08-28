@@ -35,8 +35,6 @@ namespace OmarStory
         {
             MainViewModel MainView = new MainViewModel();
             this.DataContext = MainView;
-
-            MainView.ChangeCharacter(1);
         }
     }
 }
