@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OmarStory.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,19 @@ namespace OmarStory
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            CreateMainWindowModel();
+        }
+
+        private void CreateMainWindowModel()
+        {
+            MainViewModel MainView = new MainViewModel();
+            this.DataContext = MainView;
+
+            MainView.ChangeCharacter(1);
         }
     }
 }
