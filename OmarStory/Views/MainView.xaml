@@ -3,9 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             mc:Ignorable="d" DataContext="{Binding}"
              d:DesignHeight="700" d:DesignWidth="1024">
-    <Grid Background="AntiqueWhite">
-            
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0">
+        </Grid>
+
+        <Grid Grid.Column="1" x:Name="GridInventory" Background="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0" x:Name="GroupObjects" Header="Objetos" Margin="5,5,5,5" Foreground="White" >
+            </GroupBox>
+
+            <GroupBox Grid.Row="1" x:Name="GroupFriends" Header="Amigos" Margin="5,5,5,5" Foreground="White">
+            </GroupBox>
+
+            <GroupBox Grid.Row="2" x:Name="GroupStatuses" Header="Estados" Margin="5,5,5,5" Foreground="White">
+            </GroupBox>
+        </Grid>
     </Grid>
 </UserControl>

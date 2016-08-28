@@ -26,5 +26,10 @@ namespace OmarStory
         }
     
         public DbSet<Char> Chars { get; set; }
+        public DbSet<CharDialog> CharDialogs { get; set; }
+        public DbSet<Decision> Decisions { get; set; }
+        public DbSet<Background> Backgrounds { get; set; }
+        public DbSet<Object> Objects { get; set; }
+        public DbSet<Status> Statuses { get; set; }
     }
 }

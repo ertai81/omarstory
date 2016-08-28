@@ -36,5 +36,28 @@ namespace OmarStory
             MainViewModel MainView = new MainViewModel();
             this.DataContext = MainView;
         }
+
+        private void AdvanceText(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                NextStep();
+            }
+        }
+
+        private void Window_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)
+        {
+            NextStep();
+        }
+
+        private void NextStep()
+        {
+            MainViewModel mainView = DataContext as MainViewModel;
+
+            if (mainView != null)
+            {
+                
+            }
+        }
     }
 }

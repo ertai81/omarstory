@@ -6,6 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="9c04f2654df34fc2b21f1189ba0edbd6" Name="Diagrama1">
         <EntityTypeShape EntityType="OmarStoryDBModel.Char" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OmarStoryDBModel.CharDialog" Width="1.5" PointX="1.2642737316266977" PointY="6.9492547544414434" />
+        <EntityTypeShape EntityType="OmarStoryDBModel.Decision" Width="1.5" PointX="9.4556289340628439" PointY="18.501341068419322" />
+        <EntityTypeShape EntityType="OmarStoryDBModel.Background" Width="1.5" PointX="10.776120984356906" PointY="18.348903470835136" />
+        <EntityTypeShape EntityType="OmarStoryDBModel.Object" Width="1.5" PointX="2.6542478644541685" PointY="5.955516087801902" />
+        <EntityTypeShape EntityType="OmarStoryDBModel.Status" Width="1.5" PointX="5.2002337375656857" PointY="15.71551046507224" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

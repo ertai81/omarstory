@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OmarStory.Classes;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -47,5 +48,68 @@ namespace OmarStory.Converters
                 return result;
             }
         } 
+    }
+
+    public static class Support
+    {
+        public static int ToInt(this string str)
+        {
+            int id;
+            return Int32.TryParse(str, out id) ? id : -1;
+        }
+
+        public static string GetNameItem(Result result)
+        {
+            switch (result.Code)
+            {
+                case ("O"):
+                {
+                   return Global.AllItemsDB.AllObjects.Single(x => x.Id == result.Id).Name;
+                }
+                case ("B"):
+                {
+                    return Global.AllItemsDB.AllBackgrounds.Single(x => x.Id == result.Id).Name;
+                }
+                case ("F"):
+                {
+                    return Global.AllItemsDB.AllChars.Single(x => x.Id == result.Id).Name;
+                }
+                case ("S"):
+                {
+                    return Global.AllItemsDB.AllStatuses.Single(x => x.Id == result.Id).Name;
+                }
+                default:
+                {
+                  return string.Empty;
+                }
+            }
+        }
+    }
+
+    public static class Deserialize
+    {
+        public static IEnumerable<Condition> ToListConditions(string str)
+        {
+            List<Condition> conditions = new List<Condition>();
+
+            foreach (var cond in str.Split('.'))
+            {
+                conditions.Add(new Condition(cond));
+            }
+
+            return conditions;
+        }
+
+        public static IEnumerable<Result> ToListResults(string str)
+        {
+            List<Result> result = new List<Result>();
+
+            foreach (var res in str.Split('.'))
+            {
+                result.Add(new Result(res));
+            }
+
+            return result;
+        }
     }
 }

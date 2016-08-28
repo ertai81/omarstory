@@ -65,10 +65,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Background.cs">
+      <DependentUpon>OmarStoryDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Char.cs">
       <DependentUpon>OmarStoryDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="CharDialog.cs">
+      <DependentUpon>OmarStoryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Condition.cs" />
+    <Compile Include="Classes\Result.cs" />
     <Compile Include="Converters\Converters.cs" />
+    <Compile Include="Decision.cs">
+      <DependentUpon>OmarStoryDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global\AllItemsDB.cs" />
+    <Compile Include="Global\Inventory.cs" />
+    <Compile Include="Interfaces\IElementItem.cs" />
+    <Compile Include="Object.cs">
+      <DependentUpon>OmarStoryDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="OmarStoryDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,6 +107,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Images.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Strings.cs" />
+    <Compile Include="Status.cs">
+      <DependentUpon>OmarStoryDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\FooterGeneralViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -104,6 +125,12 @@
     </Compile>
     <Compile Include="Windows\ErrorWindow.Designer.cs">
       <DependentUpon>ErrorWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\InventoryChangeWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\InventoryChangeWindow.Designer.cs">
+      <DependentUpon>InventoryChangeWindow.cs</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -151,6 +178,9 @@
     <EmbeddedResource Include="Windows\ErrorWindow.resx">
       <DependentUpon>ErrorWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Windows\InventoryChangeWindow.resx">
+      <DependentUpon>InventoryChangeWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="OmarStoryDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OmarStoryDB.Designer.cs</LastGenOutput>
@@ -179,8 +209,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

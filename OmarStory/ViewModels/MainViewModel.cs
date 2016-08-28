@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OmarStory.Global;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -12,16 +13,16 @@ namespace OmarStory.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private IEnumerable<Char> chars;
-        public IEnumerable<Char> Chars
+        private IEnumerable<Inventory> currentInventory;
+        public IEnumerable<Inventory> CurrentInventory
         {
             get
             {
-                return chars;
+                return currentInventory;
             }
             set
             {
-                chars = value;
+                currentInventory = value;
                 NotifyPropertyChanged();
             }
         }
@@ -76,20 +77,25 @@ namespace OmarStory.ViewModels
 
         public MainViewModel()
         {
-            InitializeGame();
+            GetAllItems();
+            NewGame();
         }
 
-        public void InitializeGame()
+        public void NewGame()
         {
-            GetAllChars();
+            Inventory CurrentInventory = new Inventory();
             ChangeCharacter(1);
         }
 
-        private void GetAllChars()
+        #region Characters
+        private void GetAllItems()
         {
             using (var db = new OmarStoryEntities())
             {
-                Chars = db.Chars.ToList();
+                Global.AllItemsDB.AllChars = db.Chars.ToList();
+                Global.AllItemsDB.AllObjects = db.Objects.ToList();
+                Global.AllItemsDB.AllStatuses = db.Statuses.ToList();
+                Global.AllItemsDB.AllBackgrounds = db.Backgrounds.ToList();
             }
         }
 
@@ -97,9 +103,9 @@ namespace OmarStory.ViewModels
         {
             try
             {
-                CurrentChar = Chars.Single(x => x.Name == name);
+                CurrentChar = Global.AllItemsDB.AllChars.Single(x => x.Name == name);
             }
-            catch (Exception e)
+            catch
             {
                 ShowError("Personaje no encontrado");
             }
@@ -117,6 +123,30 @@ namespace OmarStory.ViewModels
                 {
                     ShowError("Personaje no encontrado");
                 }
+            }
+        }
+        #endregion
+
+        public void ShowDialog(int id)
+        {
+            CharDialog dialog;
+            try
+            {
+                using (var db = new OmarStoryEntities())
+                {
+                    dialog = db.CharDialogs.Single(x => x.Id == id);
+                }
+
+                if (dialog.CharId != CurrentChar.Id)
+                {
+                    ChangeCharacter(dialog.CharId);
+                }
+
+                CurrentText = dialog.Text;
+            }
+            catch
+            {
+                ShowError("Dialog not found");
             }
         }
 
