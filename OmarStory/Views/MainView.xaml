@@ -12,6 +12,12 @@
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0">
+            <Image x:Name="ImageBackground"/>
+            <DataGrid x:Name="GridOptions" AutoGenerateColumns="False" HeadersVisibility="None" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{x:Null}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
 
         <Grid Grid.Column="1" x:Name="GridInventory" Background="Black">

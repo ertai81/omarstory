@@ -65,6 +65,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Actions\Decisions.cs" />
+    <Compile Include="Actions\ConditionsActions.cs" />
     <Compile Include="Background.cs">
       <DependentUpon>OmarStoryDB.tt</DependentUpon>
     </Compile>
@@ -82,7 +84,9 @@
     </Compile>
     <Compile Include="Global\AllItemsDB.cs" />
     <Compile Include="Global\Inventory.cs" />
+    <Compile Include="Interfaces\ICondition.cs" />
     <Compile Include="Interfaces\IElementItem.cs" />
+    <Compile Include="Interfaces\IResult.cs" />
     <Compile Include="Object.cs">
       <DependentUpon>OmarStoryDB.tt</DependentUpon>
     </Compile>

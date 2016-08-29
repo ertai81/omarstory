@@ -1,4 +1,5 @@
-﻿using OmarStory.Global;
+﻿using OmarStory.Actions;
+using OmarStory.Global;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -84,7 +85,8 @@ namespace OmarStory.ViewModels
         public void NewGame()
         {
             Inventory CurrentInventory = new Inventory();
-            ChangeCharacter(1);
+            ShowDialog(1);
+            //ChangeCharacter(1);
         }
 
         #region Characters
@@ -132,17 +134,29 @@ namespace OmarStory.ViewModels
             CharDialog dialog;
             try
             {
+                //Gets dialog
                 using (var db = new OmarStoryEntities())
                 {
                     dialog = db.CharDialogs.Single(x => x.Id == id);
                 }
 
+                //Checks conditions
+                if (dialog.Condition != null && dialog.Condition != string.Empty)
+                {
+                    ConditionsActions<CharDialog>.HasConditions(dialog);
+                }
+
+                //Changes character if necessary
                 if (dialog.CharId != CurrentChar.Id)
                 {
                     ChangeCharacter(dialog.CharId);
                 }
 
+                //Shows dialog in the screen
                 CurrentText = dialog.Text;
+
+                //Analizes Result
+
             }
             catch
             {
@@ -150,6 +164,7 @@ namespace OmarStory.ViewModels
             }
         }
 
+        #region Images
         private void UpdateCurrentCharImage(string name)
         {
             try
@@ -161,5 +176,6 @@ namespace OmarStory.ViewModels
                 ShowError("Imagen no encontrada");
             }
         }
+        #endregion
     }
 }

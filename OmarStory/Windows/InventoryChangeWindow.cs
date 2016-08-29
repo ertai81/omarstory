@@ -26,5 +26,10 @@ namespace OmarStory.Windows
                 Resources.Strings.Codes[result.Code],
                 Converters.Support.GetNameItem(result));
         }
+
+        private void ButtonOK_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
