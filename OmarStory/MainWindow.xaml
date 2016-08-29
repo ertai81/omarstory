@@ -10,7 +10,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" x:Name="MainGrid">
-            <views:MainView />
+            <views:GeneralView />
         </Grid>
         
         <Grid Grid.Row="1" x:Name="FooterGrid">

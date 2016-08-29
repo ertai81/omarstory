@@ -124,8 +124,8 @@
     <Compile Include="Views\FooterGeneralView.xaml.cs">
       <DependentUpon>FooterGeneralView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
+    <Compile Include="Views\GeneralView.xaml.cs">
+      <DependentUpon>GeneralView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ErrorWindow.cs">
       <SubType>Form</SubType>
@@ -155,7 +155,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainView.xaml">
+    <Page Include="Views\GeneralView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

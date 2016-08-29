@@ -65,7 +65,7 @@ namespace OmarStory
             {
                 if (mainView.IsNextStepDecision())
                 {
-                    //mainView.ShowDecision(mainView.NextStep.Id);
+                    mainView.ShowDecision(mainView.NextStep.Id);
                 }
                 else
                 {

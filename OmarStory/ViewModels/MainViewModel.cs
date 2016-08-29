@@ -4,6 +4,7 @@ using OmarStory.Global;
 using OmarStory.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -42,6 +43,8 @@ namespace OmarStory.ViewModels
         {
             //Variables
             Model.IsWaitingForDecision = false;
+            Model.DecisionsVisibility = System.Windows.Visibility.Collapsed;
+
             GetAllItems();
 
             //Triggers
@@ -51,7 +54,9 @@ namespace OmarStory.ViewModels
         {
             Inventory CurrentInventory = new Inventory();
             ChangeCharacter("Omar");
+
             ShowDialog(1);
+            //ShowDecision(1);
         }
 
         #region Next step
@@ -137,7 +142,7 @@ namespace OmarStory.ViewModels
                 dialog.CharId = 1;
                 dialog.Condition = "";
                 dialog.Text = "TEST";
-                dialog.Result = "D0002";
+                dialog.Result = "Q0001";
 
                 //using (var db = new OmarStoryEntities())
                 //{
@@ -192,9 +197,67 @@ namespace OmarStory.ViewModels
             }
         }
 
+        public void ShowDecision(int id)
+        {
+            //Prepares variables
+            IsWaitingForDecision = true;
+
+            //Clear previous options
+            Model.Decisions = new ObservableCollection<Decision>();
+
+            //Show options
+            Model.DecisionsVisibility = System.Windows.Visibility.Visible;
+
+            List<Decision> decisions = new List<Decision>();
+
+            ////////////
+            //using (var db = new OmarStoryEntities())
+            //{
+            //    decisions = db.Decisions.Where(x => x.Id == id).ToList();
+            //}
+
+            Decision dec1 = new Decision();
+            dec1.Id = 1;
+            dec1.Option = 0;
+            dec1.Text = "Texto 1";
+            dec1.Condition = "";
+            dec1.Result = "D1234";
+
+            Decision dec2 = new Decision();
+            dec2.Id = 1;
+            dec2.Option = 1;
+            dec2.Text = "Texto 2";
+            dec2.Condition = "";
+            dec2.Result = "D1234";
+
+            decisions.Add(dec1);
+            decisions.Add(dec2);
+            ///////////
+
+            foreach (var decision in decisions)
+            {
+                DecisionActions actions = new DecisionActions(this, decision);
+
+                //Checks conditions
+                if (actions.HasConditions())
+                {
+                    Result resultConditionsDontClear = actions.AnalizeConditions();
+
+                    //Result is not null -> One condition didn't clear, we have skip it
+                    if (resultConditionsDontClear != null)
+                    {
+                        continue;
+                    }
+                }
+
+                Model.Decisions.Add(decision);
+            }
+        }
+
         public void DecisionMade(int option)
         {
-
+            //Hide options
+            Model.DecisionsVisibility = System.Windows.Visibility.Collapsed;
         }
         #endregion
 

@@ -19,11 +19,11 @@ namespace OmarStory.Views
     /// <summary>
     /// Lógica de interacción para MainView.xaml
     /// </summary>
-    public partial class MainView : UserControl
+    public partial class GeneralView : UserControl
     {
-        MainViewModel View;
+        MainViewModel MainView;
 
-        public MainView()
+        public GeneralView()
         {
             InitializeComponent();
         }
@@ -40,17 +40,17 @@ namespace OmarStory.Views
 
         private void Options_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            View = DataContext as MainViewModel;
-            if (View == null)
+            MainView = DataContext as MainViewModel;
+            if (MainView == null)
                 return;
 
-            Rectangle selectedRectangle = sender as Rectangle;
+            Border selection = sender as Border;
 
-            if (selectedRectangle == null)
+            if (selection == null)
                 return;
-            int selectedOption = Converters.Support.ToInt(selectedRectangle.Name.Substring(6, 1));
+            int selectedOption = Converters.Support.ToInt(selection.Name.Substring(6, 1));
 
-            View.DecisionMade(selectedOption);
+            MainView.DecisionMade(selectedOption);
         }
     }
 }
