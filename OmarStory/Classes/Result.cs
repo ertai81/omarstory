@@ -13,7 +13,7 @@ namespace OmarStory.Classes
             Raw = raw;
         }
 
-        private bool hasAction
+        public bool IsInventoryUpdate
         {
             get
             {
@@ -35,7 +35,7 @@ namespace OmarStory.Classes
         {
             get
             {
-                return hasAction ? Raw.Substring(0, 1) : string.Empty;
+                return IsInventoryUpdate ? Raw.Substring(0, 1) : string.Empty;
             }
         }
 
@@ -43,7 +43,7 @@ namespace OmarStory.Classes
         {
             get
             {
-                int indexBegin = hasAction ? 2 : 1;
+                int indexBegin = IsInventoryUpdate ? 2 : 1;
                 return Converters.Support.ToInt(Raw.Substring(indexBegin,4));
             }
         }

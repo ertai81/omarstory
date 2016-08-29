@@ -9,9 +9,9 @@ namespace OmarStory.Global
 {
     public static class AllItemsDB
     {
-        public static IEnumerable<Char> AllChars { get; set; }
-        public static IEnumerable<Object> AllObjects { get; set; }
-        public static IEnumerable<Status> AllStatuses { get; set; }
-        public static IEnumerable<Background> AllBackgrounds { get; set; }
+        public static List<Char> AllChars { get; set; }
+        public static List<Object> AllObjects { get; set; }
+        public static List<Status> AllStatuses { get; set; }
+        public static List<Background> AllBackgrounds { get; set; }
     }
 }

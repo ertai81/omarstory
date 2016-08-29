@@ -11,7 +11,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Column="0" Margin="5,5,5,5" x:Name="ImageActiveChar" Source="{Binding CurrentCharImage}">
+        <Image Grid.Column="0" Margin="5,5,5,5" x:Name="ImageActiveChar" Source="{Binding Model.CurrentCharImage}">
         </Image>
         
         <Grid Grid.Column="1" Background="Black">
@@ -19,12 +19,12 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" x:Name="CurrentCharName" Text="{Binding CurrentChar.Name}" 
+            <TextBlock Grid.Row="0" x:Name="CurrentCharName" Text="{Binding Model.CurrentChar.Name}" 
                        Background="Black" Foreground="White" FontWeight="Bold" FontSize="18" 
                        FontFamily="Segoe Script" Margin="5,0,0,0">
             </TextBlock>
             <TextBlock Grid.Row="1" x:Name="CurrentText" Background="#FFD3F2F3" TextWrapping="Wrap"
-                       Text="{Binding CurrentText}" FontSize="30" Margin="0,0,0,0">
+                       Text="{Binding Model.CurrentText}" FontSize="30" Margin="0,0,0,0">
             </TextBlock>
         </Grid>
     </Grid>
