@@ -47,13 +47,20 @@ namespace OmarStory
 
         private void Window_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)
         {
-            NextStep();
+            MainViewModel mainView = DataContext as MainViewModel;
+            if (mainView != null)
+            {
+                //Advance only if app is not waiting for a user input (decision)
+                if (!mainView.IsWaitingForDecision)
+                {
+                    NextStep();
+                }
+            }
         }
 
         private void NextStep()
         {
             MainViewModel mainView = DataContext as MainViewModel;
-
             if (mainView != null)
             {
                 if (mainView.IsNextStepDecision())

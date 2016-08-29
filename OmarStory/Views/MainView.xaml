@@ -13,11 +13,37 @@
         
         <Grid Grid.Column="0">
             <Image x:Name="ImageBackground"/>
-            <DataGrid x:Name="GridOptions" AutoGenerateColumns="False" HeadersVisibility="None" >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{x:Null}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            
+            <Grid x:Name="GridDecisions" Width="250" Height="400" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle x:Name="Option0" Grid.Column="0"
+                   Grid.Row="0"
+                   Stroke="Black"
+                   StrokeThickness="3"
+                   Fill="White" MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
+                   MouseLeftButtonUp="Options_MouseLeftButtonUp" />
+                
+                <Rectangle x:Name="Option1" Grid.Column="0"
+                   Grid.Row="2"
+                   Stroke="Black"
+                   StrokeThickness="3"
+                   Fill="Transparent" MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave"
+                   MouseLeftButtonUp="Options_MouseLeftButtonUp" />
+
+                <Rectangle x:Name="Option2" Grid.Column="0"
+                   Grid.Row="4"
+                   StrokeThickness="3"
+                   Stroke="Black"
+                   Fill="Transparent" MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave"
+                   MouseLeftButtonUp="Options_MouseLeftButtonUp" />
+            </Grid>
         </Grid>
 
         <Grid Grid.Column="1" x:Name="GridInventory" Background="Black">

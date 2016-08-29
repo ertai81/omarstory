@@ -33,8 +33,18 @@ namespace OmarStory.ViewModels
         public MainViewModel()
         {
             Model = new MainModel();
-            GetAllItems();
+
+            Initialize();
             NewGame();
+        }
+
+        public void Initialize()
+        {
+            //Variables
+            Model.IsWaitingForDecision = false;
+            GetAllItems();
+
+            //Triggers
         }
 
         public void NewGame()
@@ -56,6 +66,11 @@ namespace OmarStory.ViewModels
                 Model.NextStep = value;
                 NotifyPropertyChanged();
             }
+        }
+
+        public void SaveNextStep(Result result)
+        {
+            Model.NextStep = new Step(result);
         }
 
         public bool IsNextStepDecision()
@@ -163,10 +178,25 @@ namespace OmarStory.ViewModels
         }
         #endregion
 
-        public void SaveNextStep(Result result)
+        #region Decisions
+        public bool IsWaitingForDecision
         {
-            Model.NextStep = new Step(result);
+            get
+            {
+                return Model.IsWaitingForDecision;
+            }
+            set
+            {
+                Model.IsWaitingForDecision = value;
+                NotifyPropertyChanged();
+            }
         }
+
+        public void DecisionMade(int option)
+        {
+
+        }
+        #endregion
 
         #region Images
         private void UpdateCurrentCharImage(string name)

@@ -84,6 +84,7 @@
       <DependentUpon>OmarStoryDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Global\AllItemsDB.cs" />
+    <Compile Include="Global\Global.cs" />
     <Compile Include="Global\Inventory.cs" />
     <Compile Include="Interfaces\ICondition.cs" />
     <Compile Include="Interfaces\IElementItem.cs" />

@@ -91,5 +91,8 @@ namespace OmarStory.Models
         }
         #endregion
 
+        #region  Properties for the Main View
+        public bool IsWaitingForDecision { get; set; }
+        #endregion
     }
 }
