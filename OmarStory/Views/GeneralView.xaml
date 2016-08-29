@@ -29,7 +29,7 @@
                    Background="White"
                    MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
                    MouseLeftButtonUp="Options_MouseLeftButtonUp" BorderThickness="5" >
-                    <TextBlock Text="{Binding Model.Option0}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Model.Options[0].Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Border>
 
                 <Border x:Name="Option1" Grid.Column="0"
@@ -38,7 +38,7 @@
                    Background="White"
                    MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
                    MouseLeftButtonUp="Options_MouseLeftButtonUp" BorderThickness="5" >
-                    <TextBlock Text="{Binding Model.Option1}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Model.Option1.Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Border>
 
                 <Border x:Name="Option2" Grid.Column="0"
