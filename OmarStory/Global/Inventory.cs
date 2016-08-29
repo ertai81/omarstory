@@ -8,9 +8,9 @@ namespace OmarStory.Global
 {
     public class Inventory
     {
-        List<int> Friends;
-        List<int> Objects;
-        List<int> Statuses;
+        public static List<int> Friends;
+        public static List<int> Objects;
+        public static List<int> Statuses;
 
         public Inventory()
         {

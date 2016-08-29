@@ -65,8 +65,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Actions\Decisions.cs" />
-    <Compile Include="Actions\ConditionsActions.cs" />
+    <Compile Include="Actions\DecisionActions.cs" />
+    <Compile Include="Actions\DialogActions.cs" />
     <Compile Include="Background.cs">
       <DependentUpon>OmarStoryDB.tt</DependentUpon>
     </Compile>
@@ -77,6 +77,7 @@
       <DependentUpon>OmarStoryDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\Condition.cs" />
+    <Compile Include="Classes\Step.cs" />
     <Compile Include="Classes\Result.cs" />
     <Compile Include="Converters\Converters.cs" />
     <Compile Include="Decision.cs">
@@ -87,6 +88,7 @@
     <Compile Include="Interfaces\ICondition.cs" />
     <Compile Include="Interfaces\IElementItem.cs" />
     <Compile Include="Interfaces\IResult.cs" />
+    <Compile Include="Models\MainModel.cs" />
     <Compile Include="Object.cs">
       <DependentUpon>OmarStoryDB.tt</DependentUpon>
     </Compile>
@@ -212,9 +214,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

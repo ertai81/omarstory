@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OmarStory.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace OmarStory.Interfaces
 {
-    interface ICondition
+    interface ICondition <T> where T : class
     {
-        string Condition { get; }
+        bool HasConditions();
 
-        bool HasConditions<T>();
-
-        void CheckConditions<T>();
+        Result AnalizeConditions();
     }
 }

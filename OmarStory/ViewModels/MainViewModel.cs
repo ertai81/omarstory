@@ -1,5 +1,7 @@
 ﻿using OmarStory.Actions;
+using OmarStory.Classes;
 using OmarStory.Global;
+using OmarStory.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,70 +16,23 @@ namespace OmarStory.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private IEnumerable<Inventory> currentInventory;
-        public IEnumerable<Inventory> CurrentInventory
+        private MainModel model;
+        public MainModel Model
         {
             get
             {
-                return currentInventory;
+                return model;
             }
             set
             {
-                currentInventory = value;
+                model = value;
                 NotifyPropertyChanged();
             }
         }
-
-        #region Properties for the Footer
-        private Char currentChar;
-        public Char CurrentChar
-        {
-            get
-            {
-                return currentChar;
-            }
-            set
-            {
-                currentChar = value;
-
-                UpdateCurrentCharImage(currentChar.Name);
-
-                NotifyPropertyChanged();
-            }
-        }
-
-        private BitmapSource currentCharImage;
-        public BitmapSource CurrentCharImage
-        {
-            get
-            {
-                return currentCharImage;
-            }
-            set
-            {
-                currentCharImage = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private string currentText;
-        public string CurrentText
-        {
-            get
-            {
-                return currentText;
-            }
-            set
-            {
-                currentText = value;
-                NotifyPropertyChanged();
-            }
-        }
-        #endregion
-
 
         public MainViewModel()
         {
+            Model = new MainModel();
             GetAllItems();
             NewGame();
         }
@@ -85,27 +40,52 @@ namespace OmarStory.ViewModels
         public void NewGame()
         {
             Inventory CurrentInventory = new Inventory();
+            ChangeCharacter("Omar");
             ShowDialog(1);
-            //ChangeCharacter(1);
         }
+
+        #region Next step
+        public Step NextStep
+        {
+            get
+            {
+                return Model.NextStep;
+            }
+            set
+            {
+                Model.NextStep = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsNextStepDecision()
+        {
+            return Model.NextStep.IsDecision();
+        }
+        #endregion
 
         #region Characters
         private void GetAllItems()
         {
-            using (var db = new OmarStoryEntities())
-            {
-                Global.AllItemsDB.AllChars = db.Chars.ToList();
-                Global.AllItemsDB.AllObjects = db.Objects.ToList();
-                Global.AllItemsDB.AllStatuses = db.Statuses.ToList();
-                Global.AllItemsDB.AllBackgrounds = db.Backgrounds.ToList();
-            }
+            Global.AllItemsDB.AllChars = new List<Char>();
+            AllItemsDB.AllChars.Add(new Char { Id = 1, Name = "Omar" });
+
+            //
+            //using (var db = new OmarStoryEntities())
+            //{
+            //    Global.AllItemsDB.AllChars = db.Chars.ToList();
+            //    Global.AllItemsDB.AllObjects = db.Objects.ToList();
+            //    Global.AllItemsDB.AllStatuses = db.Statuses.ToList();
+            //    Global.AllItemsDB.AllBackgrounds = db.Backgrounds.ToList();
+            //}
         }
 
         public void ChangeCharacter(string name)
         {
             try
             {
-                CurrentChar = Global.AllItemsDB.AllChars.Single(x => x.Name == name);
+                Model.CurrentChar = Global.AllItemsDB.AllChars.Single(x => x.Name == name);
+                UpdateCurrentCharImage(Model.CurrentChar.Name);
             }
             catch
             {
@@ -119,7 +99,8 @@ namespace OmarStory.ViewModels
             {
                 try
                 {
-                    CurrentChar = db.Chars.Single(x => x.Id == id);
+                    Model.CurrentChar = db.Chars.Single(x => x.Id == id);
+                    UpdateCurrentCharImage(Model.CurrentChar.Name);
                 }
                 catch
                 {
@@ -129,39 +110,62 @@ namespace OmarStory.ViewModels
         }
         #endregion
 
+        #region Dialogs
         public void ShowDialog(int id)
         {
             CharDialog dialog;
             try
             {
                 //Gets dialog
-                using (var db = new OmarStoryEntities())
-                {
-                    dialog = db.CharDialogs.Single(x => x.Id == id);
-                }
+                dialog = new CharDialog();
+                dialog.Id = 1;
+                dialog.CharId = 1;
+                dialog.Condition = "";
+                dialog.Text = "TEST";
+                dialog.Result = "D0002";
+
+                //using (var db = new OmarStoryEntities())
+                //{
+                //    dialog = db.CharDialogs.Single(x => x.Id == id);
+                //}
+
+                DialogActions actions = new DialogActions(this, dialog);
 
                 //Checks conditions
-                if (dialog.Condition != null && dialog.Condition != string.Empty)
+                if (actions.HasConditions())
                 {
-                    ConditionsActions<CharDialog>.HasConditions(dialog);
+                    Result resultConditionsDontClear = actions.AnalizeConditions();
+
+                    //Result is not null -> One condition didn't clear, we have to jump there
+                    if (resultConditionsDontClear != null)
+                    {
+                        SaveNextStep(resultConditionsDontClear);
+                        return;
+                    }
                 }
 
                 //Changes character if necessary
-                if (dialog.CharId != CurrentChar.Id)
+                if (dialog.CharId != Model.CurrentChar.Id)
                 {
                     ChangeCharacter(dialog.CharId);
                 }
 
                 //Shows dialog in the screen
-                CurrentText = dialog.Text;
+                Model.CurrentText = dialog.Text;
 
                 //Analizes Result
-
+                actions.AnalizeResult();
             }
             catch
             {
                 ShowError("Dialog not found");
             }
+        }
+        #endregion
+
+        public void SaveNextStep(Result result)
+        {
+            Model.NextStep = new Step(result);
         }
 
         #region Images
@@ -169,11 +173,23 @@ namespace OmarStory.ViewModels
         {
             try
             {
-                CurrentCharImage = Converters.BitmapConversion.ToWpfBitmap(Resources.CharImagesList.GetBitmap[name]);
+                Model.CurrentCharImage = Converters.BitmapConversion.ToWpfBitmap(Resources.CharImagesList.GetBitmap[name]);
             }
             catch
             {
                 ShowError("Imagen no encontrada");
+            }
+        }
+
+        public void UpdateBackgound(int id)
+        {
+            try
+            {
+                Model.CurrentBackground = Converters.BitmapConversion.ToWpfBitmap(Resources.CharImagesList.GetBitmap[id.ToString()]);
+            }
+            catch
+            {
+                ShowError("Fondo no encontrado");
             }
         }
         #endregion
