@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmarStory.Interfaces
 {
-    interface IResult
+    interface IResult<T> where T : class
     {
     }
 }

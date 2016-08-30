@@ -1,5 +1,7 @@
 ﻿using OmarStory.Actions;
 using OmarStory.Classes;
+using OmarStory.Data;
+using OmarStory.DBQueries;
 using OmarStory.Global;
 using OmarStory.Models;
 using System;
@@ -56,7 +58,6 @@ namespace OmarStory.ViewModels
             ChangeCharacter("Omar");
 
             ShowDialog(1);
-            //ShowDecision(1);
         }
 
         #region Next step
@@ -87,17 +88,20 @@ namespace OmarStory.ViewModels
         #region Characters
         private void GetAllItems()
         {
-            Global.AllItemsDB.AllChars = new List<Char>();
-            AllItemsDB.AllChars.Add(new Char { Id = 1, Name = "Omar" });
-
-            //
-            //using (var db = new OmarStoryEntities())
-            //{
-            //    Global.AllItemsDB.AllChars = db.Chars.ToList();
-            //    Global.AllItemsDB.AllObjects = db.Objects.ToList();
-            //    Global.AllItemsDB.AllStatuses = db.Statuses.ToList();
-            //    Global.AllItemsDB.AllBackgrounds = db.Backgrounds.ToList();
-            //}
+            try
+            {
+                using (var session = DbContext.OpenSession(Global.Global.DbProvider, Global.Global.CnnString))
+                {
+                    Global.AllItemsDB.AllChars = OmarStoryDb.SelectCharacterData(session.Connection).ToList();
+                    Global.AllItemsDB.AllObjects = OmarStoryDb.SelectObjectData(session.Connection).ToList();
+                    Global.AllItemsDB.AllStatuses = OmarStoryDb.SelectStatusData(session.Connection).ToList();
+                    Global.AllItemsDB.AllBackgrounds = OmarStoryDb.SelectBackgroundData(session.Connection).ToList();
+                }
+            }
+            catch(Exception e)
+            {
+                string a = e.Message;
+            }
         }
 
         public void ChangeCharacter(string name)
@@ -115,17 +119,14 @@ namespace OmarStory.ViewModels
 
         public void ChangeCharacter(int id)
         {
-            using (var db = new OmarStoryEntities())
+            try
             {
-                try
-                {
-                    Model.CurrentChar = db.Chars.Single(x => x.Id == id);
-                    UpdateCurrentCharImage(Model.CurrentChar.Name);
-                }
-                catch
-                {
-                    ShowError("Personaje no encontrado");
-                }
+                Model.CurrentChar = Global.AllItemsDB.AllChars.Single(x => x.Id == id);
+                UpdateCurrentCharImage(Model.CurrentChar.Name);
+            }
+            catch
+            {
+                ShowError("Personaje no encontrado");
             }
         }
         #endregion
@@ -133,21 +134,13 @@ namespace OmarStory.ViewModels
         #region Dialogs
         public void ShowDialog(int id)
         {
-            CharDialog dialog;
+            DialogData dialog;
             try
             {
-                //Gets dialog
-                dialog = new CharDialog();
-                dialog.Id = 1;
-                dialog.CharId = 1;
-                dialog.Condition = "";
-                dialog.Text = "TEST";
-                dialog.Result = "Q0001";
-
-                //using (var db = new OmarStoryEntities())
-                //{
-                //    dialog = db.CharDialogs.Single(x => x.Id == id);
-                //}
+                using (var session = DbContext.OpenSession(Global.Global.DbProvider, Global.Global.CnnString))
+                {
+                    dialog = OmarStoryDb.SelectDialogData(session.Connection, id);
+                }
 
                 DialogActions actions = new DialogActions(this, dialog);
 
@@ -176,9 +169,9 @@ namespace OmarStory.ViewModels
                 //Analizes Result
                 actions.AnalizeResult();
             }
-            catch
+            catch(Exception e)
             {
-                ShowError("Dialog not found");
+                ShowError(String.Format("Error buscando diálogo {0}{1}{2}", id.ToString(),Environment.NewLine, e.Message));
             }
         }
         #endregion
@@ -199,65 +192,58 @@ namespace OmarStory.ViewModels
 
         public void ShowDecision(int id)
         {
-            //Prepares variables
-            IsWaitingForDecision = true;
-
-            //Clear previous options
-            Model.Decisions = new ObservableCollection<Decision>();
-
-            //Show options
-            Model.DecisionsVisibility = System.Windows.Visibility.Visible;
-
-            List<Decision> decisions = new List<Decision>();
-
-            ////////////
-            //using (var db = new OmarStoryEntities())
-            //{
-            //    decisions = db.Decisions.Where(x => x.Id == id).ToList();
-            //}
-
-            Decision dec1 = new Decision();
-            dec1.Id = 1;
-            dec1.Option = 0;
-            dec1.Text = "Texto 1";
-            dec1.Condition = "";
-            dec1.Result = "D1234";
-
-            Decision dec2 = new Decision();
-            dec2.Id = 1;
-            dec2.Option = 1;
-            dec2.Text = "Texto 2";
-            dec2.Condition = "";
-            dec2.Result = "D1234";
-
-            decisions.Add(dec1);
-            decisions.Add(dec2);
-            ///////////
-
-            foreach (var decision in decisions)
+            try
             {
-                DecisionActions actions = new DecisionActions(this, decision);
+                //Prepares variables
+                IsWaitingForDecision = true;
 
-                //Checks conditions
-                if (actions.HasConditions())
+                //Clear previous options
+                Model.Decisions = new ObservableCollection<DecisionData>();
+
+                //Show options
+                Model.DecisionsVisibility = System.Windows.Visibility.Visible;
+
+                List<DecisionData> decisions = new List<DecisionData>();
+
+                using (var session = DbContext.OpenSession(Global.Global.DbProvider, Global.Global.CnnString))
                 {
-                    Result resultConditionsDontClear = actions.AnalizeConditions();
-
-                    //Result is not null -> One condition didn't clear, we have skip it
-                    if (resultConditionsDontClear != null)
-                    {
-                        continue;
-                    }
+                    decisions = OmarStoryDb.SelectDecisionData(session.Connection, id).ToList();
                 }
 
-                Model.Decisions.Add(decision);
+                foreach (var decision in decisions)
+                {
+                    DecisionActions actions = new DecisionActions(this, decision);
+
+                    //Checks conditions
+                    if (actions.HasConditions())
+                    {
+                        Result resultConditionsDontClear = actions.AnalizeConditions();
+
+                        //Result is not null -> One condition didn't clear, we have skip it
+                        if (resultConditionsDontClear != null)
+                        {
+                            continue;
+                        }
+                    }
+
+                    Model.Decisions.Add(decision);
+                }
+            }
+            catch(Exception e)
+            {
+                ShowError(String.Format("Error buscando decisiones {0}{1}{2}", id.ToString(), Environment.NewLine, e.Message));
             }
         }
 
-        public void DecisionMade(int option)
+        public void AnalyzeSelectedDecision(DecisionData selectedDecision)
         {
+            IsWaitingForDecision = false;
+
             //Hide options
             Model.DecisionsVisibility = System.Windows.Visibility.Collapsed;
+
+            DecisionActions actions = new DecisionActions(this, selectedDecision);
+            actions.AnalizeResult();
         }
         #endregion
 
@@ -270,7 +256,7 @@ namespace OmarStory.ViewModels
             }
             catch
             {
-                ShowError("Imagen no encontrada");
+                ShowError(String.Format("Imagen no encontrada: {0}", name));
             }
         }
 
@@ -282,7 +268,7 @@ namespace OmarStory.ViewModels
             }
             catch
             {
-                ShowError("Fondo no encontrado");
+                ShowError(String.Format("Fondo no encontrado: {0}", id.ToString()));
             }
         }
         #endregion

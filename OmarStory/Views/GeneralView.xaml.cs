@@ -1,4 +1,5 @@
-﻿using OmarStory.ViewModels;
+﻿using OmarStory.Data;
+using OmarStory.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,9 +49,13 @@ namespace OmarStory.Views
 
             if (selection == null)
                 return;
-            int selectedOption = Converters.Support.ToInt(selection.Name.Substring(6, 1));
 
-            MainView.DecisionMade(selectedOption);
+            DecisionData selectedDecision = selection.DataContext as DecisionData;
+
+            if (selectedDecision == null)
+                return;
+
+            MainView.AnalyzeSelectedDecision(selectedDecision);
         }
     }
 }
