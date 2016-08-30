@@ -10,16 +10,18 @@ using System.Threading.Tasks;
 
 namespace OmarStory.Actions
 {
-    public class DecisionActions : ICondition<DecisionData>
+    public class DecisionActions : CommonActions, ICondition<DecisionData>, IResult<DecisionData>
     {
         DecisionData Decision;
         MainViewModel ViewModel;
 
         public DecisionActions(MainViewModel viewModel, DecisionData decision)
         {
+            ViewModel = viewModel;
             Decision = decision;
         }
 
+        #region Conditions
         public bool HasConditions()
         {
             if (Decision.Condition != null && Decision.Condition != string.Empty)
@@ -29,7 +31,6 @@ namespace OmarStory.Actions
             return false;
         }
 
-        #region Conditions
         public Result AnalizeConditions()
         {
             List<Condition> conditions = Converters.Deserialize.ToListConditions(Decision.Condition).ToList();
@@ -53,73 +54,34 @@ namespace OmarStory.Actions
             //Got to the end of the condition list without any error
             return null;
         }
-
-        private Result AnalizeCondition(Condition condition)
-        {
-            switch (condition.Code)
-            {
-                case ("O"):
-                    {
-                        return AnalizeObject(condition);
-                    }
-                case ("F"):
-                    {
-                        return AnalizeFriend(condition);
-                    }
-                case ("S"):
-                    {
-                        return AnalizeStatus(condition);
-                    }
-                default:
-                    return null;
-            }
-        }
-
-        private Result AnalizeObject(Condition condition)
-        {
-            if (condition.IsHave && Global.Inventory.Objects.Contains(condition.Id)
-                || (!condition.IsHave && Global.Inventory.Objects.Contains(condition.Id)
-                ))
-            {
-                return null;
-            }
-            else
-            {
-                return condition.AlternateResult;
-            }
-        }
-
-        private Result AnalizeFriend(Condition condition)
-        {
-            if (condition.IsHave && Global.Inventory.Friends.Contains(condition.Id)
-                || (!condition.IsHave && Global.Inventory.Friends.Contains(condition.Id)
-                ))
-            {
-                return null;
-            }
-            else
-            {
-                return condition.AlternateResult;
-            }
-        }
-
-        private Result AnalizeStatus(Condition condition)
-        {
-            if (condition.IsHave && Global.Inventory.Statuses.Contains(condition.Id)
-                || (!condition.IsHave && Global.Inventory.Statuses.Contains(condition.Id)
-                ))
-            {
-                return null;
-            }
-            else
-            {
-                return condition.AlternateResult;
-            }
-        }
         #endregion
 
         #region Result
+        public void AnalizeResult()
+        {
+            List<Result> results = Converters.Deserialize.ToListResults(Decision.Result).ToList();
 
+            //Gets the changes
+            foreach (Result result in results)
+            {
+                //Updates inventory if needed
+                if (result.IsInventoryUpdate)
+                {
+                    UpdateInventory(result);
+                    ShowMessage(result);
+                }
+
+                if (IsBackgroundChange(result.Code))
+                {
+                    ViewModel.UpdateBackgound(result.Id);
+                }
+
+                if (IsNextStep(result.Code))
+                {
+                    ViewModel.SaveNextStep(result);
+                }
+            }
+        }
         #endregion
     }
 }

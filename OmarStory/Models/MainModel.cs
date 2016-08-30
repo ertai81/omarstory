@@ -138,50 +138,6 @@ namespace OmarStory.Models
         {
             NotifyPropertyChanged("Decisions");
         }
-
-        public DecisionData Decision0
-        {
-            get
-            {
-                if (Decisions.Count > 0)
-                    return Decisions[0];
-                else
-                    return new DecisionData();
-            }
-        }
-
-        public DecisionData Decision1
-        {
-            get
-            {
-                if (Decisions.Count > 1)
-                    return Decisions[1];
-                else
-                    return new DecisionData();
-            }
-        }
-
-        public DecisionData Decision2
-        {
-            get
-            {
-                if (Decisions.Count > 2)
-                    return Decisions[2];
-                else
-                    return new DecisionData();
-            }
-        }
-
-        public DecisionData Decision3
-        {
-            get
-            {
-                if (Decisions.Count > 3)
-                    return Decisions[3];
-                else
-                    return new DecisionData();
-            }
-        }
         #endregion
     }
 }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OmarStory.Actions
 {
-    public class DialogActions : ICondition<DialogData>
+    public class DialogActions : CommonActions, ICondition<DialogData>, IResult<DialogData>
     {
         MainViewModel ViewModel;
         DialogData Dialog;
@@ -145,67 +145,6 @@ namespace OmarStory.Actions
                     ViewModel.SaveNextStep(result);
                 }
             }
-        }
-
-        private bool IsNextStep(string code)
-        {
-            return (code == "D" || code == "Q");
-        }
-
-        private bool IsBackgroundChange(string code)
-        {
-            return code == "B";
-        }
-
-        private void UpdateInventory(Result result)
-        {
-            switch (result.Code)
-            {
-                case ("O"):
-                    {
-                        if (result.Action == "R" && !Global.Inventory.Objects.Contains(result.Id))
-                        {
-                            Global.Inventory.Objects.Add(result.Id);
-                        }
-                        else if (Global.Inventory.Objects.Contains(result.Id))
-                        {
-                            Global.Inventory.Objects.Remove(result.Id);
-                        }
-                        break;
-                    }
-                case ("F"):
-                    {
-                        if (result.Action == "R" && !Global.Inventory.Friends.Contains(result.Id))
-                        {
-                            Global.Inventory.Friends.Add(result.Id);
-                        }
-                        else if (Global.Inventory.Friends.Contains(result.Id))
-                        {
-                            Global.Inventory.Friends.Remove(result.Id);
-                        }
-                        break;
-                    }
-                case ("S"):
-                    {
-                        if (result.Action == "R" && !Global.Inventory.Statuses.Contains(result.Id))
-                        {
-                            Global.Inventory.Statuses.Add(result.Id);
-                        }
-                        else if (Global.Inventory.Statuses.Contains(result.Id))
-                        {
-                            Global.Inventory.Statuses.Remove(result.Id);
-                        }
-                        break;
-                    }
-                default:
-                    return;
-            }
-        }
-
-        private void ShowMessage(Result result)
-        {
-            InventoryChangeWindow infoWindow = new InventoryChangeWindow(result);
-            infoWindow.ShowDialog();
         }
         #endregion
     }

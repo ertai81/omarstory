@@ -235,10 +235,15 @@ namespace OmarStory.ViewModels
             }
         }
 
-        public void DecisionMade(DecisionData selectedDecision)
+        public void AnalyzeSelectedDecision(DecisionData selectedDecision)
         {
+            IsWaitingForDecision = false;
+
             //Hide options
             Model.DecisionsVisibility = System.Windows.Visibility.Collapsed;
+
+            DecisionActions actions = new DecisionActions(this, selectedDecision);
+            actions.AnalizeResult();
         }
         #endregion
 

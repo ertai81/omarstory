@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Actions\CommonActions.cs" />
     <Compile Include="Actions\DecisionActions.cs" />
     <Compile Include="Actions\DialogActions.cs" />
     <Compile Include="Classes\Condition.cs" />

@@ -55,7 +55,7 @@ namespace OmarStory.Views
             if (selectedDecision == null)
                 return;
 
-            MainView.DecisionMade(selectedDecision);
+            MainView.AnalyzeSelectedDecision(selectedDecision);
         }
     }
 }
