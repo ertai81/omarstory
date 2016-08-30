@@ -1,4 +1,5 @@
-﻿using OmarStory.Interfaces;
+﻿using OmarStory.Data;
+using OmarStory.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace OmarStory.Global
 {
     public static class AllItemsDB
     {
-        public static List<Char> AllChars { get; set; }
-        public static List<Object> AllObjects { get; set; }
-        public static List<Status> AllStatuses { get; set; }
-        public static List<Background> AllBackgrounds { get; set; }
+        public static List<CharacterData> AllChars { get; set; }
+        public static List<Data.ObjectData> AllObjects { get; set; }
+        public static List<StatusData> AllStatuses { get; set; }
+        public static List<BackgroundData> AllBackgrounds { get; set; }
     }
 }

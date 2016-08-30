@@ -1,4 +1,5 @@
 ﻿using OmarStory.Classes;
+using OmarStory.Data;
 using OmarStory.Interfaces;
 using OmarStory.ViewModels;
 using System;
@@ -9,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace OmarStory.Actions
 {
-    public class DecisionActions : ICondition<Decision>
+    public class DecisionActions : ICondition<DecisionData>
     {
-        Decision Decision;
+        DecisionData Decision;
         MainViewModel ViewModel;
 
-        public DecisionActions(MainViewModel viewModel, Decision decision)
+        public DecisionActions(MainViewModel viewModel, DecisionData decision)
         {
             Decision = decision;
         }
@@ -115,6 +116,10 @@ namespace OmarStory.Actions
                 return condition.AlternateResult;
             }
         }
+        #endregion
+
+        #region Result
+
         #endregion
     }
 }

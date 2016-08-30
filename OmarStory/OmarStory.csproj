@@ -42,7 +42,9 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
@@ -80,22 +82,22 @@
     </ApplicationDefinition>
     <Compile Include="Actions\DecisionActions.cs" />
     <Compile Include="Actions\DialogActions.cs" />
-    <Compile Include="Background.cs">
-      <DependentUpon>OmarStoryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Char.cs">
-      <DependentUpon>OmarStoryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CharDialog.cs">
-      <DependentUpon>OmarStoryDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Classes\Condition.cs" />
     <Compile Include="Classes\Step.cs" />
     <Compile Include="Classes\Result.cs" />
     <Compile Include="Converters\Converters.cs" />
-    <Compile Include="Decision.cs">
-      <DependentUpon>OmarStoryDB.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Data\BackgroundData.cs" />
+    <Compile Include="Data\CharacterData.cs" />
+    <Compile Include="Data\DecisionData.cs" />
+    <Compile Include="Data\DialogData.cs" />
+    <Compile Include="Data\ObjectData.cs" />
+    <Compile Include="Data\OmarStoryDb.cs" />
+    <Compile Include="Data\StatusData.cs" />
+    <Compile Include="DBQueries\Attributes.cs" />
+    <Compile Include="DBQueries\Crypto.cs" />
+    <Compile Include="DBQueries\DBContext.cs" />
+    <Compile Include="DBQueries\DbSession.cs" />
+    <Compile Include="DBQueries\DbTable.cs" />
     <Compile Include="Global\AllItemsDB.cs" />
     <Compile Include="Global\Global.cs" />
     <Compile Include="Global\Inventory.cs" />
@@ -103,24 +105,6 @@
     <Compile Include="Interfaces\IElementItem.cs" />
     <Compile Include="Interfaces\IResult.cs" />
     <Compile Include="Models\MainModel.cs" />
-    <Compile Include="Object.cs">
-      <DependentUpon>OmarStoryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OmarStoryDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OmarStoryDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OmarStoryDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OmarStoryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OmarStoryDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OmarStoryDB.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\CharImagesList.cs" />
     <Compile Include="Resources\Images.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -128,9 +112,6 @@
       <DependentUpon>Images.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Strings.cs" />
-    <Compile Include="Status.cs">
-      <DependentUpon>OmarStoryDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\FooterGeneralViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -201,23 +182,6 @@
     <EmbeddedResource Include="Windows\InventoryChangeWindow.resx">
       <DependentUpon>InventoryChangeWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="OmarStoryDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OmarStoryDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="OmarStoryDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OmarStoryDB.edmx</DependentUpon>
-      <LastGenOutput>OmarStoryDB.Context.cs</LastGenOutput>
-    </None>
-    <None Include="OmarStoryDB.edmx.diagram">
-      <DependentUpon>OmarStoryDB.edmx</DependentUpon>
-    </None>
-    <None Include="OmarStoryDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OmarStoryDB.edmx</DependentUpon>
-      <LastGenOutput>OmarStoryDB.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

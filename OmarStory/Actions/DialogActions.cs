@@ -1,4 +1,5 @@
 ﻿using OmarStory.Classes;
+using OmarStory.Data;
 using OmarStory.Interfaces;
 using OmarStory.ViewModels;
 using OmarStory.Windows;
@@ -10,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace OmarStory.Actions
 {
-    public class DialogActions : ICondition<CharDialog>
+    public class DialogActions : ICondition<DialogData>
     {
         MainViewModel ViewModel;
-        CharDialog Dialog;
+        DialogData Dialog;
 
-        public DialogActions(MainViewModel viewModel, CharDialog dialog)
+        public DialogActions(MainViewModel viewModel, DialogData dialog)
         {
             ViewModel = viewModel;
             Dialog = dialog;

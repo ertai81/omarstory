@@ -5,6 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" DataContext="{Binding}"
              d:DesignHeight="700" d:DesignWidth="1024">
+    
+    <UserControl.Resources>
+        <Style TargetType="Border" x:Key="StyleDecisionHideIfEmpty" >
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text}" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -21,33 +32,48 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Border x:Name="Option0" Grid.Column="0"
+                <Border x:Name="Option0" Grid.Column="0" Style="{StaticResource StyleDecisionHideIfEmpty}"
                    Grid.Row="0"
+                   DataContext="{Binding Model.Decisions[0], Mode=OneWay }"
                    BorderBrush="Black"
                    Background="White"
                    MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
                    MouseLeftButtonUp="Options_MouseLeftButtonUp" BorderThickness="5" >
-                    <TextBlock Text="{Binding Model.Options[0].Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Model.Decisions[0].Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Border>
 
-                <Border x:Name="Option1" Grid.Column="0"
+                <Border x:Name="Option1" Grid.Column="0" Style="{StaticResource StyleDecisionHideIfEmpty}"
                    Grid.Row="2"
+                   DataContext="{Binding Model.Decisions[1]}"
                    BorderBrush="Black"
                    Background="White"
                    MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
                    MouseLeftButtonUp="Options_MouseLeftButtonUp" BorderThickness="5" >
-                    <TextBlock Text="{Binding Model.Option1.Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Model.Decisions[1].Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Border>
 
-                <Border x:Name="Option2" Grid.Column="0"
+                <Border x:Name="Option2" Grid.Column="0" Style="{StaticResource StyleDecisionHideIfEmpty}"
                    Grid.Row="4"
+                   DataContext="{Binding Model.Decisions[2]}"
                    BorderBrush="Black"
                    Background="White"
                    MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
                    MouseLeftButtonUp="Options_MouseLeftButtonUp" BorderThickness="5" >
-                    <TextBlock Text="{Binding Model.Option2}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Model.Decisions[2].Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Border>
+
+                <Border x:Name="Option3" Grid.Column="0" Style="{StaticResource StyleDecisionHideIfEmpty}"
+                   Grid.Row="6"
+                   DataContext="{Binding Model.Decisions[3]}"
+                   BorderBrush="Black"
+                   Background="White"
+                   MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
+                   MouseLeftButtonUp="Options_MouseLeftButtonUp" BorderThickness="5" >
+                    <TextBlock Text="{Binding Model.Decisions[3].Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Border>
             </Grid>
         </Grid>

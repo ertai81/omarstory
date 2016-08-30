@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Collections.Specialized;
+using OmarStory.Data;
 
 namespace OmarStory.Models
 {
@@ -25,6 +26,7 @@ namespace OmarStory.Models
             set
             {
                 currentInventory = value;
+                NotifyPropertyChanged();
             }
         }
 
@@ -38,12 +40,13 @@ namespace OmarStory.Models
             set
             {
                 nextStep = value;
+                NotifyPropertyChanged();
             }
         }
 
         #region Properties for the Footer
-        private Char currentChar;
-        public Char CurrentChar
+        private CharacterData currentChar;
+        public CharacterData CurrentChar
         {
             get
             {
@@ -52,6 +55,7 @@ namespace OmarStory.Models
             set
             {
                 currentChar = value;
+                NotifyPropertyChanged();
             }
         }
 
@@ -65,6 +69,7 @@ namespace OmarStory.Models
             set
             {
                 currentCharImage = value;
+                NotifyPropertyChanged();
             }
         }
 
@@ -78,6 +83,7 @@ namespace OmarStory.Models
             set
             {
                 currentBackground = value;
+                NotifyPropertyChanged();
             }
         }
 
@@ -91,6 +97,7 @@ namespace OmarStory.Models
             set
             {
                 currentText = value;
+                NotifyPropertyChanged();
             }
         }
         #endregion
@@ -112,8 +119,8 @@ namespace OmarStory.Models
             }
         }
 
-        private ObservableCollection<Decision> decisions;
-        public ObservableCollection<Decision> Decisions
+        private ObservableCollection<DecisionData> decisions;
+        public ObservableCollection<DecisionData> Decisions
         {
             get
             {
@@ -123,44 +130,56 @@ namespace OmarStory.Models
             {
                 decisions = value;
                 decisions.CollectionChanged += ContentCollectionChanged;
+                NotifyPropertyChanged();
             }
         }
 
         private void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            NotifyPropertyChanged();
+            NotifyPropertyChanged("Decisions");
         }
 
-        public Decision Decision0
+        public DecisionData Decision0
         {
             get
             {
                 if (Decisions.Count > 0)
                     return Decisions[0];
                 else
-                    return new Decision();
+                    return new DecisionData();
             }
         }
 
-        public Decision Decision1
+        public DecisionData Decision1
         {
             get
             {
                 if (Decisions.Count > 1)
                     return Decisions[1];
                 else
-                    return new Decision();
+                    return new DecisionData();
             }
         }
 
-        public Decision Decision2
+        public DecisionData Decision2
         {
             get
             {
                 if (Decisions.Count > 2)
                     return Decisions[2];
                 else
-                    return new Decision();
+                    return new DecisionData();
+            }
+        }
+
+        public DecisionData Decision3
+        {
+            get
+            {
+                if (Decisions.Count > 3)
+                    return Decisions[3];
+                else
+                    return new DecisionData();
             }
         }
         #endregion
