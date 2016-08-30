@@ -37,7 +37,7 @@ namespace OmarStory.Actions
 
             foreach (Condition cond in conditions)
             {
-                Result result = AnalizeCondition(cond);
+                Result result = CheckCondition(cond);
 
                 if (result == null)
                 {
@@ -57,30 +57,9 @@ namespace OmarStory.Actions
         #endregion
 
         #region Result
-        public void AnalizeResult()
+        public void AnalizeResults()
         {
-            List<Result> results = Converters.Deserialize.ToListResults(Decision.Result).ToList();
-
-            //Gets the changes
-            foreach (Result result in results)
-            {
-                //Updates inventory if needed
-                if (result.IsInventoryUpdate)
-                {
-                    UpdateInventory(result);
-                    ShowMessage(result);
-                }
-
-                if (IsBackgroundChange(result.Code))
-                {
-                    ViewModel.UpdateBackgound(result.Id);
-                }
-
-                if (IsNextStep(result.Code))
-                {
-                    ViewModel.SaveNextStep(result);
-                }
-            }
+            AnalizeResults(ViewModel, Decision.Result);
         }
         #endregion
     }

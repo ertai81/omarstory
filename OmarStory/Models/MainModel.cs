@@ -16,8 +16,8 @@ namespace OmarStory.Models
 {
     public class MainModel : ViewModelBase
     {
-        private IEnumerable<Inventory> currentInventory;
-        public IEnumerable<Inventory> CurrentInventory
+        private Inventory currentInventory;
+        public Inventory CurrentInventory
         {
             get
             {
@@ -28,6 +28,10 @@ namespace OmarStory.Models
                 currentInventory = value;
                 NotifyPropertyChanged();
             }
+        }
+        private void InventoryCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("CurrentInventory");
         }
 
         private Step nextStep;

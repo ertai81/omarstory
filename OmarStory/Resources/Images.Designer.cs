@@ -63,6 +63,16 @@ namespace OmarStory.Resources {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Aeropuerto {
+            get {
+                object obj = ResourceManager.GetObject("Aeropuerto", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Inaki {
             get {
                 object obj = ResourceManager.GetObject("Inaki", resourceCulture);
