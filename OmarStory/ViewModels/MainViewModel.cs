@@ -54,8 +54,9 @@ namespace OmarStory.ViewModels
 
         public void NewGame()
         {
-            Inventory CurrentInventory = new Inventory();
+            Model.CurrentInventory = new Inventory();
             ChangeCharacter("Omar");
+            UpdateBackgound("Aeropuerto");
 
             ShowDialog(1);
         }
@@ -167,7 +168,7 @@ namespace OmarStory.ViewModels
                 Model.CurrentText = dialog.Text;
 
                 //Analizes Result
-                actions.AnalizeResult();
+                actions.AnalizeResults();
             }
             catch(Exception e)
             {
@@ -243,7 +244,7 @@ namespace OmarStory.ViewModels
             Model.DecisionsVisibility = System.Windows.Visibility.Collapsed;
 
             DecisionActions actions = new DecisionActions(this, selectedDecision);
-            actions.AnalizeResult();
+            actions.AnalizeResults();
         }
         #endregion
 
@@ -260,15 +261,15 @@ namespace OmarStory.ViewModels
             }
         }
 
-        public void UpdateBackgound(int id)
+        public void UpdateBackgound(string name)
         {
             try
             {
-                Model.CurrentBackground = Converters.BitmapConversion.ToWpfBitmap(Resources.CharImagesList.GetBitmap[id.ToString()]);
+                Model.CurrentBackground = Converters.BitmapConversion.ToWpfBitmap(Resources.BackgroundImagesList.GetBitmap[name]);
             }
             catch
             {
-                ShowError(String.Format("Fondo no encontrado: {0}", id.ToString()));
+                ShowError(String.Format("Fondo no encontrado: {0}", name));
             }
         }
         #endregion

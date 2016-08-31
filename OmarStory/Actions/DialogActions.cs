@@ -38,7 +38,7 @@ namespace OmarStory.Actions
 
             foreach (Condition cond in conditions)
             {
-                Result result = AnalizeCondition(cond);
+                Result result = CheckCondition(cond);
 
                 if (result == null)
                 {
@@ -55,96 +55,12 @@ namespace OmarStory.Actions
             //Got to the end of the condition list without any error
             return null;
         }
-
-        private Result AnalizeCondition(Condition condition)
-        {
-            switch(condition.Code)
-            {
-                case ("O"):
-                    {
-                        return AnalizeObject(condition);
-                    }
-                case ("F"):
-                    {
-                        return AnalizeFriend(condition);
-                    }
-                case ("S"):
-                    {
-                        return AnalizeStatus(condition);
-                    }
-                default:
-                    return null;
-            }
-        }
-
-        private Result AnalizeObject(Condition condition)
-        {
-            if (     condition.IsHave && Global.Inventory.Objects.Contains(condition.Id)
-                || (!condition.IsHave && Global.Inventory.Objects.Contains(condition.Id)
-                ))
-            {
-                return null;
-            }
-            else
-            {
-                return condition.AlternateResult;
-            }
-        }
-
-        private Result AnalizeFriend(Condition condition)
-        {
-            if (condition.IsHave && Global.Inventory.Friends.Contains(condition.Id)
-                || (!condition.IsHave && Global.Inventory.Friends.Contains(condition.Id)
-                ))
-            {
-                return null;
-            }
-            else
-            {
-                return condition.AlternateResult;
-            }
-        }
-
-        private Result AnalizeStatus(Condition condition)
-        {
-            if (condition.IsHave && Global.Inventory.Statuses.Contains(condition.Id)
-                || (!condition.IsHave && Global.Inventory.Statuses.Contains(condition.Id)
-                ))
-            {
-                return null;
-            }
-            else
-            {
-                return condition.AlternateResult;
-            }
-        }
         #endregion
 
         #region Result
-        public void AnalizeResult()
+        public void AnalizeResults()
         {
-            List<Result> results = Converters.Deserialize.ToListResults(Dialog.Result).ToList();
-
-            //Gets the changes
-            foreach (Result result in results)
-            {
-                //Updates inventory if needed
-                if (result.IsInventoryUpdate)
-                {
-                    UpdateInventory(result);
-                    ShowMessage(result);
-                }
-
-                if (IsBackgroundChange(result.Code))
-                {
-                    ViewModel.UpdateBackgound(result.Id);
-                }
-
-                if (IsNextStep(result.Code))
-                {
-                    ViewModel.SaveNextStep(result);
-                }
-            }
+            AnalizeResults(ViewModel, Dialog.Result);
         }
         #endregion
     }

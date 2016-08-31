@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" DataContext="{Binding}"
-             d:DesignHeight="700" d:DesignWidth="1024">
+             d:DesignHeight="700" d:DesignWidth="1000">
     
     <UserControl.Resources>
         <Style TargetType="Border" x:Key="StyleDecisionHideIfEmpty" >
@@ -23,7 +23,9 @@
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0">
-            <Image x:Name="ImageBackground"/>
+            <Border BorderThickness="5" BorderBrush="Black">
+                <Image x:Name="ImageBackground" Source="{Binding Model.CurrentBackground}" Stretch="Fill"/>
+            </Border>
 
             <Grid x:Name="GridDecisions" Width="250" Height="400" Visibility="{Binding Model.DecisionsVisibility}">
                 <Grid.RowDefinitions>
@@ -43,7 +45,8 @@
                    Background="White"
                    MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
                    MouseLeftButtonUp="Options_MouseLeftButtonUp" BorderThickness="5" >
-                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18"
+                               HorizontalAlignment="Center"/>
                 </Border>
 
                 <Border x:Name="Option1" Grid.Column="0" Style="{StaticResource StyleDecisionHideIfEmpty}"
@@ -53,7 +56,8 @@
                    Background="White"
                    MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
                    MouseLeftButtonUp="Options_MouseLeftButtonUp" BorderThickness="5" >
-                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18"
+                               HorizontalAlignment="Center"/>
                 </Border>
 
                 <Border x:Name="Option2" Grid.Column="0" Style="{StaticResource StyleDecisionHideIfEmpty}"
@@ -63,7 +67,8 @@
                    Background="White"
                    MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
                    MouseLeftButtonUp="Options_MouseLeftButtonUp" BorderThickness="5" >
-                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18"
+                               HorizontalAlignment="Center"/>
                 </Border>
 
                 <Border x:Name="Option3" Grid.Column="0" Style="{StaticResource StyleDecisionHideIfEmpty}"
@@ -73,7 +78,8 @@
                    Background="White"
                    MouseEnter="Options_MouseEnter" MouseLeave="Options_MouseLeave" 
                    MouseLeftButtonUp="Options_MouseLeftButtonUp" BorderThickness="5" >
-                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18"
+                               HorizontalAlignment="Center"/>
                 </Border>
             </Grid>
         </Grid>
@@ -85,13 +91,25 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <GroupBox Grid.Row="0" x:Name="GroupObjects" Header="Objetos" Margin="5,5,5,5" Foreground="White" >
+            <GroupBox Grid.Row="0" x:Name="GroupObjects" Header="Objetos" Margin="5,5,5,5" Foreground="White">
+                <ListBox x:Name="ListObjects" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="16"
+                         ItemsSource="{Binding Model.CurrentInventory.Objects, UpdateSourceTrigger=PropertyChanged}"
+                         DisplayMemberPath="Name">                    
+                </ListBox>
             </GroupBox>
 
             <GroupBox Grid.Row="1" x:Name="GroupFriends" Header="Amigos" Margin="5,5,5,5" Foreground="White">
+                <ListBox x:Name="ListFriends" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="16"
+                         ItemsSource="{Binding Model.CurrentInventory.Friends, UpdateSourceTrigger=PropertyChanged}"
+                         DisplayMemberPath="Name">
+                </ListBox>
             </GroupBox>
 
             <GroupBox Grid.Row="2" x:Name="GroupStatuses" Header="Estados" Margin="5,5,5,5" Foreground="White">
+                <ListBox x:Name="ListStatuses" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="16"
+                         ItemsSource="{Binding Model.CurrentInventory.Statuses, UpdateSourceTrigger=PropertyChanged}"
+                         DisplayMemberPath="Name">
+                </ListBox>
             </GroupBox>
         </Grid>
     </Grid>

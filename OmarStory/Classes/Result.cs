@@ -35,7 +35,7 @@ namespace OmarStory.Classes
         {
             get
             {
-                return IsInventoryUpdate ? Raw.Substring(0, 1) : string.Empty;
+                return IsInventoryUpdate ? Raw.Substring(1, 1) : string.Empty;
             }
         }
 

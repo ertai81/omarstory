@@ -17,7 +17,7 @@ namespace OmarStory.Windows
         {
             InitializeComponent();
 
-            this.Text = String.Format("{0}{1}", 
+            this.Text = String.Format("{0} {1}", 
                 Resources.Strings.Action[result.Action], 
                 Resources.Strings.Codes[result.Code]);
 
