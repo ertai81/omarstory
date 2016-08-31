@@ -40,19 +40,22 @@
             this.GridDecisions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GridDecisions.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.GridDecisions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridDecisions.Location = new System.Drawing.Point(12, 12);
+            this.GridDecisions.Location = new System.Drawing.Point(16, 15);
+            this.GridDecisions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.GridDecisions.Name = "GridDecisions";
+            this.GridDecisions.ReadOnly = true;
             this.GridDecisions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridDecisions.Size = new System.Drawing.Size(568, 535);
+            this.GridDecisions.Size = new System.Drawing.Size(757, 658);
             this.GridDecisions.TabIndex = 0;
             this.GridDecisions.DoubleClick += new System.EventHandler(this.GridDecisions_DoubleClick);
             // 
             // Decisions
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(592, 559);
+            this.ClientSize = new System.Drawing.Size(789, 688);
             this.Controls.Add(this.GridDecisions);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Decisions";
             this.Text = "Decisions";
             this.Load += new System.EventHandler(this.Decisions_Load);

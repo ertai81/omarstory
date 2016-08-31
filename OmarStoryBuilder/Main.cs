@@ -380,6 +380,16 @@ namespace OmarStoryBuilder
             }
         }
 
+        private void ButtonConnectToLastDialog_Click(object sender, EventArgs e)
+        {
+            MainModel.DecisionToConnectTo = new DecisionData();
+
+            int lastDialog = MainModel.AllDialogs.Max(x => x.Id);
+            MainModel.DialogToConnectTo = MainModel.AllDialogs.Single(x => x.Id == lastDialog);
+
+            TextConnectToStepText.Text = MainModel.DialogToConnectTo.Text;
+        }
+
         private void ButtonConnectToDecision_Click(object sender, EventArgs e)
         {
             Decisions decisionSelection = new Decisions(this);
@@ -406,16 +416,6 @@ namespace OmarStoryBuilder
                 MessageBox.Show("Límite de caracteres alcanzado");
                 TextNewTextDialog.Text = TextNewTextDialog.Text.Substring(0, 190);
             }
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextConnectToStepText_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
