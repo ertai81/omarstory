@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OmarStory.Data
 {
-    public class StatusData
+    public class StatusData : ItemData
     {
         [DbColumn(IsPrimaryKey = true, IsAutoIncrement = true)]
         public int Id { get; set; }

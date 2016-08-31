@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OmarStory.Data
 {
-    public class BackgroundData
+    public class BackgroundData : ItemData
     {
         [DbColumn(IsPrimaryKey = true, IsAutoIncrement = true)]
         public int Id { get; set; }

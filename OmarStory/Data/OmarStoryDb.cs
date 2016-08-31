@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace OmarStory.Data
 {
-    class OmarStoryDb
+    public class OmarStoryDb
     {
+        #region Items
+        public static int AddItemData<T>(IDbTransaction transaction, string name)
+        {
+            int code = DbTable<ItemData>.Insert(transaction, typeof(T).Name, new DbValues("Name", name));
+            return code;
+        }
+        #endregion
+
         #region Character
         public static ICollection<CharacterData> SelectCharacterData(IDbConnection cnn)
         {
@@ -24,7 +32,7 @@ namespace OmarStory.Data
 
                 return chars;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show(String.Format("Error recuperando personajes{0}{1}", Environment.NewLine, e.Message));
                 return null;
@@ -56,6 +64,34 @@ namespace OmarStory.Data
         #endregion
 
         #region Dialog
+        public static int AddDialogData(IDbTransaction transaction, DialogData newDialog)
+        {
+            int code = DbTable<DialogData>.Insert(transaction, typeof(DialogData).Name, 
+                new DbValues("CharId, Text, Result, Condition", 
+                newDialog.CharId, newDialog.Text, newDialog.Result, newDialog.Condition));
+            return code;
+        }
+
+        public static ICollection<DialogData> SelectDialogData(IDbConnection cnn)
+        {
+            try
+            {
+                var dialogs = DbTable<DialogData>.Select(cnn).ToList();
+
+                if (dialogs == null)
+                {
+                    return new List<DialogData>();
+                }
+
+                return dialogs;
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(String.Format("Error recuperando diálogos"));
+                return null;
+            }
+        }
+
         public static DialogData SelectDialogData(IDbConnection cnn, int id)
         {
             try
@@ -81,6 +117,26 @@ namespace OmarStory.Data
         #endregion
 
         #region Decision
+        public static ICollection<DecisionData> SelectDecisionData(IDbConnection cnn)
+        {
+            try
+            {
+                var decisions = DbTable<DecisionData>.Select(cnn).ToList();
+
+                if (decisions == null)
+                {
+                    return new List<DecisionData>();
+                }
+
+                return decisions;
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(String.Format("Error recuperando decisiones"));
+                return null;
+            }
+        }
+
         public static ICollection<DecisionData> SelectDecisionData(IDbConnection cnn, int id)
         {
             try
