@@ -30,7 +30,6 @@ namespace OmarStoryBuilder
 
             foreach (DataGridViewColumn column in GridDialogs.Columns)
             {
-
                 GridDialogs.Columns[column.Name].SortMode = DataGridViewColumnSortMode.Automatic;
             }
         }
