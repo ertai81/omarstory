@@ -41,6 +41,8 @@ namespace OmarStoryBuilder
         private void Main_Load(object sender, EventArgs e)
         {
             ReloadItems();
+            ReloadDialogs();
+            ReloadDecisions();
         }
 
         public void ReloadDialogs()
@@ -298,6 +300,12 @@ namespace OmarStoryBuilder
                 nextDecision = "Q" + selectedDialogId.ToString("0000");
             }
             TextNewResultDialog.Text += isFirstResult ? nextDecision : "." + nextDecision;
+        }
+
+        private void ButtonAddDecision_Click(object sender, EventArgs e)
+        {
+            MainDecision newDecision = new MainDecision(MainModel, this);
+            newDecision.Show();
         }
         #endregion
     }

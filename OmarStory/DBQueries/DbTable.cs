@@ -590,7 +590,7 @@ namespace OmarStory.DBQueries
                 trans.Commit();
                 return 0;
             }
-            catch
+            catch(Exception e)
             {
                 return -1;
             }

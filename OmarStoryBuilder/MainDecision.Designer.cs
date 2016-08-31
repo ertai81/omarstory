@@ -1,6 +1,6 @@
 ﻿namespace OmarStoryBuilder
 {
-    partial class Main
+    partial class MainDecision
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DialogGroup = new System.Windows.Forms.GroupBox();
+            this.DecisionGroup = new System.Windows.Forms.GroupBox();
+            this.ButtonAddNewDecision = new System.Windows.Forms.Button();
             this.ButtonReset = new System.Windows.Forms.Button();
             this.ButtonNextDecision = new System.Windows.Forms.Button();
             this.ButtonNextDialog = new System.Windows.Forms.Button();
-            this.GroupItems = new System.Windows.Forms.GroupBox();
-            this.ButtonAddItem = new System.Windows.Forms.Button();
-            this.RadioTypeItemBackground = new System.Windows.Forms.RadioButton();
-            this.RadioTypeItemStatus = new System.Windows.Forms.RadioButton();
-            this.RadioTypeItemCharacter = new System.Windows.Forms.RadioButton();
-            this.RadioTypeItemObject = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.TextItemName = new System.Windows.Forms.TextBox();
             this.ButtonAddDialog = new System.Windows.Forms.Button();
             this.ButtonResultLosesFriend = new System.Windows.Forms.Button();
             this.ButtonResultLosesStatus = new System.Windows.Forms.Button();
@@ -62,61 +55,73 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.ListObjects = new System.Windows.Forms.ListBox();
-            this.TextNewResultDialog = new System.Windows.Forms.TextBox();
-            this.TextNewConditionDialog = new System.Windows.Forms.TextBox();
-            this.TextNewTextDialog = new System.Windows.Forms.TextBox();
+            this.TextNewResultDecision = new System.Windows.Forms.TextBox();
+            this.TextNewConditionDecision = new System.Windows.Forms.TextBox();
+            this.TextNewTextDecision = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.ComboCharacters = new System.Windows.Forms.ComboBox();
-            this.ButtonAddDecision = new System.Windows.Forms.Button();
-            this.DialogGroup.SuspendLayout();
-            this.GroupItems.SuspendLayout();
+            this.ComboOptions = new System.Windows.Forms.ComboBox();
+            this.ButtonResetAll = new System.Windows.Forms.Button();
+            this.ButtonDeleteThisOption = new System.Windows.Forms.Button();
+            this.DecisionGroup.SuspendLayout();
             this.SuspendLayout();
             // 
-            // DialogGroup
+            // DecisionGroup
             // 
-            this.DialogGroup.Controls.Add(this.ButtonReset);
-            this.DialogGroup.Controls.Add(this.ButtonNextDecision);
-            this.DialogGroup.Controls.Add(this.ButtonNextDialog);
-            this.DialogGroup.Controls.Add(this.GroupItems);
-            this.DialogGroup.Controls.Add(this.ButtonAddDialog);
-            this.DialogGroup.Controls.Add(this.ButtonResultLosesFriend);
-            this.DialogGroup.Controls.Add(this.ButtonResultLosesStatus);
-            this.DialogGroup.Controls.Add(this.ButtonResultGetsFriend);
-            this.DialogGroup.Controls.Add(this.ButtonResultLosesObject);
-            this.DialogGroup.Controls.Add(this.ButtonChangeBackground);
-            this.DialogGroup.Controls.Add(this.ButtonResultGetsStatus);
-            this.DialogGroup.Controls.Add(this.ButtonConditionDoesntHaveFriend);
-            this.DialogGroup.Controls.Add(this.ButtonResultGetsObject);
-            this.DialogGroup.Controls.Add(this.ButtonConditionHasFriend);
-            this.DialogGroup.Controls.Add(this.ButtonConditionDoesntHaveStatus);
-            this.DialogGroup.Controls.Add(this.ButtonConditionHasStatus);
-            this.DialogGroup.Controls.Add(this.ButtonConditionDoesntHaveObject);
-            this.DialogGroup.Controls.Add(this.ButtonConditionHasObject);
-            this.DialogGroup.Controls.Add(this.label5);
-            this.DialogGroup.Controls.Add(this.ListBackground);
-            this.DialogGroup.Controls.Add(this.ListStatuses);
-            this.DialogGroup.Controls.Add(this.ListCharacters);
-            this.DialogGroup.Controls.Add(this.label6);
-            this.DialogGroup.Controls.Add(this.label4);
-            this.DialogGroup.Controls.Add(this.label3);
-            this.DialogGroup.Controls.Add(this.ListObjects);
-            this.DialogGroup.Controls.Add(this.TextNewResultDialog);
-            this.DialogGroup.Controls.Add(this.TextNewConditionDialog);
-            this.DialogGroup.Controls.Add(this.TextNewTextDialog);
-            this.DialogGroup.Controls.Add(this.label2);
-            this.DialogGroup.Controls.Add(this.ComboCharacters);
-            this.DialogGroup.Location = new System.Drawing.Point(12, 12);
-            this.DialogGroup.Name = "DialogGroup";
-            this.DialogGroup.Size = new System.Drawing.Size(822, 584);
-            this.DialogGroup.TabIndex = 0;
-            this.DialogGroup.TabStop = false;
-            this.DialogGroup.Text = "Diálogo";
+            this.DecisionGroup.Controls.Add(this.ButtonDeleteThisOption);
+            this.DecisionGroup.Controls.Add(this.ButtonResetAll);
+            this.DecisionGroup.Controls.Add(this.ButtonAddNewDecision);
+            this.DecisionGroup.Controls.Add(this.ButtonReset);
+            this.DecisionGroup.Controls.Add(this.ButtonNextDecision);
+            this.DecisionGroup.Controls.Add(this.ButtonNextDialog);
+            this.DecisionGroup.Controls.Add(this.ButtonAddDialog);
+            this.DecisionGroup.Controls.Add(this.ButtonResultLosesFriend);
+            this.DecisionGroup.Controls.Add(this.ButtonResultLosesStatus);
+            this.DecisionGroup.Controls.Add(this.ButtonResultGetsFriend);
+            this.DecisionGroup.Controls.Add(this.ButtonResultLosesObject);
+            this.DecisionGroup.Controls.Add(this.ButtonChangeBackground);
+            this.DecisionGroup.Controls.Add(this.ButtonResultGetsStatus);
+            this.DecisionGroup.Controls.Add(this.ButtonConditionDoesntHaveFriend);
+            this.DecisionGroup.Controls.Add(this.ButtonResultGetsObject);
+            this.DecisionGroup.Controls.Add(this.ButtonConditionHasFriend);
+            this.DecisionGroup.Controls.Add(this.ButtonConditionDoesntHaveStatus);
+            this.DecisionGroup.Controls.Add(this.ButtonConditionHasStatus);
+            this.DecisionGroup.Controls.Add(this.ButtonConditionDoesntHaveObject);
+            this.DecisionGroup.Controls.Add(this.ButtonConditionHasObject);
+            this.DecisionGroup.Controls.Add(this.label5);
+            this.DecisionGroup.Controls.Add(this.ListBackground);
+            this.DecisionGroup.Controls.Add(this.ListStatuses);
+            this.DecisionGroup.Controls.Add(this.ListCharacters);
+            this.DecisionGroup.Controls.Add(this.label6);
+            this.DecisionGroup.Controls.Add(this.label4);
+            this.DecisionGroup.Controls.Add(this.label3);
+            this.DecisionGroup.Controls.Add(this.ListObjects);
+            this.DecisionGroup.Controls.Add(this.TextNewResultDecision);
+            this.DecisionGroup.Controls.Add(this.TextNewConditionDecision);
+            this.DecisionGroup.Controls.Add(this.TextNewTextDecision);
+            this.DecisionGroup.Controls.Add(this.label2);
+            this.DecisionGroup.Controls.Add(this.ComboOptions);
+            this.DecisionGroup.Location = new System.Drawing.Point(12, 12);
+            this.DecisionGroup.Name = "DecisionGroup";
+            this.DecisionGroup.Size = new System.Drawing.Size(822, 584);
+            this.DecisionGroup.TabIndex = 1;
+            this.DecisionGroup.TabStop = false;
+            this.DecisionGroup.Text = "Decisión";
+            // 
+            // ButtonAddNewDecision
+            // 
+            this.ButtonAddNewDecision.Location = new System.Drawing.Point(11, 185);
+            this.ButtonAddNewDecision.Name = "ButtonAddNewDecision";
+            this.ButtonAddNewDecision.Size = new System.Drawing.Size(127, 48);
+            this.ButtonAddNewDecision.TabIndex = 9;
+            this.ButtonAddNewDecision.Text = "Añadir nueva opción";
+            this.ButtonAddNewDecision.UseVisualStyleBackColor = true;
+            this.ButtonAddNewDecision.Click += new System.EventHandler(this.ButtonAddNewDecision_Click);
             // 
             // ButtonReset
             // 
-            this.ButtonReset.Location = new System.Drawing.Point(11, 185);
+            this.ButtonReset.Location = new System.Drawing.Point(11, 264);
             this.ButtonReset.Name = "ButtonReset";
-            this.ButtonReset.Size = new System.Drawing.Size(75, 23);
+            this.ButtonReset.Size = new System.Drawing.Size(109, 23);
             this.ButtonReset.TabIndex = 8;
             this.ButtonReset.Text = "Reset";
             this.ButtonReset.UseVisualStyleBackColor = true;
@@ -142,102 +147,16 @@
             this.ButtonNextDialog.UseVisualStyleBackColor = true;
             this.ButtonNextDialog.Click += new System.EventHandler(this.ButtonNextDialog_Click);
             // 
-            // GroupItems
-            // 
-            this.GroupItems.Controls.Add(this.ButtonAddItem);
-            this.GroupItems.Controls.Add(this.RadioTypeItemBackground);
-            this.GroupItems.Controls.Add(this.RadioTypeItemStatus);
-            this.GroupItems.Controls.Add(this.RadioTypeItemCharacter);
-            this.GroupItems.Controls.Add(this.RadioTypeItemObject);
-            this.GroupItems.Controls.Add(this.label1);
-            this.GroupItems.Controls.Add(this.TextItemName);
-            this.GroupItems.Location = new System.Drawing.Point(11, 457);
-            this.GroupItems.Name = "GroupItems";
-            this.GroupItems.Size = new System.Drawing.Size(245, 117);
-            this.GroupItems.TabIndex = 1;
-            this.GroupItems.TabStop = false;
-            this.GroupItems.Text = "Items";
-            // 
-            // ButtonAddItem
-            // 
-            this.ButtonAddItem.Location = new System.Drawing.Point(49, 38);
-            this.ButtonAddItem.Name = "ButtonAddItem";
-            this.ButtonAddItem.Size = new System.Drawing.Size(75, 23);
-            this.ButtonAddItem.TabIndex = 3;
-            this.ButtonAddItem.Text = "Añadir";
-            this.ButtonAddItem.UseVisualStyleBackColor = true;
-            this.ButtonAddItem.Click += new System.EventHandler(this.ButtonAddItem_Click);
-            // 
-            // RadioTypeItemBackground
-            // 
-            this.RadioTypeItemBackground.AutoSize = true;
-            this.RadioTypeItemBackground.Location = new System.Drawing.Point(156, 84);
-            this.RadioTypeItemBackground.Name = "RadioTypeItemBackground";
-            this.RadioTypeItemBackground.Size = new System.Drawing.Size(55, 17);
-            this.RadioTypeItemBackground.TabIndex = 2;
-            this.RadioTypeItemBackground.TabStop = true;
-            this.RadioTypeItemBackground.Text = "Fondo";
-            this.RadioTypeItemBackground.UseVisualStyleBackColor = true;
-            // 
-            // RadioTypeItemStatus
-            // 
-            this.RadioTypeItemStatus.AutoSize = true;
-            this.RadioTypeItemStatus.Location = new System.Drawing.Point(156, 61);
-            this.RadioTypeItemStatus.Name = "RadioTypeItemStatus";
-            this.RadioTypeItemStatus.Size = new System.Drawing.Size(58, 17);
-            this.RadioTypeItemStatus.TabIndex = 2;
-            this.RadioTypeItemStatus.TabStop = true;
-            this.RadioTypeItemStatus.Text = "Estado";
-            this.RadioTypeItemStatus.UseVisualStyleBackColor = true;
-            // 
-            // RadioTypeItemCharacter
-            // 
-            this.RadioTypeItemCharacter.AutoSize = true;
-            this.RadioTypeItemCharacter.Location = new System.Drawing.Point(156, 38);
-            this.RadioTypeItemCharacter.Name = "RadioTypeItemCharacter";
-            this.RadioTypeItemCharacter.Size = new System.Drawing.Size(72, 17);
-            this.RadioTypeItemCharacter.TabIndex = 2;
-            this.RadioTypeItemCharacter.TabStop = true;
-            this.RadioTypeItemCharacter.Text = "Personaje";
-            this.RadioTypeItemCharacter.UseVisualStyleBackColor = true;
-            // 
-            // RadioTypeItemObject
-            // 
-            this.RadioTypeItemObject.AutoSize = true;
-            this.RadioTypeItemObject.Location = new System.Drawing.Point(156, 15);
-            this.RadioTypeItemObject.Name = "RadioTypeItemObject";
-            this.RadioTypeItemObject.Size = new System.Drawing.Size(56, 17);
-            this.RadioTypeItemObject.TabIndex = 2;
-            this.RadioTypeItemObject.TabStop = true;
-            this.RadioTypeItemObject.Text = "Objeto";
-            this.RadioTypeItemObject.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Name:";
-            // 
-            // TextItemName
-            // 
-            this.TextItemName.Location = new System.Drawing.Point(49, 15);
-            this.TextItemName.Name = "TextItemName";
-            this.TextItemName.Size = new System.Drawing.Size(100, 20);
-            this.TextItemName.TabIndex = 0;
-            // 
             // ButtonAddDialog
             // 
             this.ButtonAddDialog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonAddDialog.Location = new System.Drawing.Point(167, 235);
+            this.ButtonAddDialog.Location = new System.Drawing.Point(178, 519);
             this.ButtonAddDialog.Name = "ButtonAddDialog";
             this.ButtonAddDialog.Size = new System.Drawing.Size(128, 53);
             this.ButtonAddDialog.TabIndex = 6;
-            this.ButtonAddDialog.Text = "Añadir diálogo";
+            this.ButtonAddDialog.Text = "Añadir decisiones";
             this.ButtonAddDialog.UseVisualStyleBackColor = true;
-            this.ButtonAddDialog.Click += new System.EventHandler(this.ButtonAddDialog_Click);
+            this.ButtonAddDialog.Click += new System.EventHandler(this.ButtonAddDecision_Click);
             // 
             // ButtonResultLosesFriend
             // 
@@ -437,119 +356,121 @@
             this.ListObjects.Size = new System.Drawing.Size(120, 290);
             this.ListObjects.TabIndex = 4;
             // 
-            // TextNewResultDialog
+            // TextNewResultDecision
             // 
-            this.TextNewResultDialog.Location = new System.Drawing.Point(167, 127);
-            this.TextNewResultDialog.Multiline = true;
-            this.TextNewResultDialog.Name = "TextNewResultDialog";
-            this.TextNewResultDialog.Size = new System.Drawing.Size(127, 51);
-            this.TextNewResultDialog.TabIndex = 2;
+            this.TextNewResultDecision.Location = new System.Drawing.Point(167, 127);
+            this.TextNewResultDecision.Multiline = true;
+            this.TextNewResultDecision.Name = "TextNewResultDecision";
+            this.TextNewResultDecision.Size = new System.Drawing.Size(127, 51);
+            this.TextNewResultDecision.TabIndex = 2;
+            this.TextNewResultDecision.TextChanged += new System.EventHandler(this.TextNewResultDecision_TextChanged);
             // 
-            // TextNewConditionDialog
+            // TextNewConditionDecision
             // 
-            this.TextNewConditionDialog.Location = new System.Drawing.Point(167, 54);
-            this.TextNewConditionDialog.Multiline = true;
-            this.TextNewConditionDialog.Name = "TextNewConditionDialog";
-            this.TextNewConditionDialog.Size = new System.Drawing.Size(127, 46);
-            this.TextNewConditionDialog.TabIndex = 2;
+            this.TextNewConditionDecision.Location = new System.Drawing.Point(167, 54);
+            this.TextNewConditionDecision.Multiline = true;
+            this.TextNewConditionDecision.Name = "TextNewConditionDecision";
+            this.TextNewConditionDecision.Size = new System.Drawing.Size(127, 46);
+            this.TextNewConditionDecision.TabIndex = 2;
+            this.TextNewConditionDecision.TextChanged += new System.EventHandler(this.TextNewConditionDecision_TextChanged);
             // 
-            // TextNewTextDialog
+            // TextNewTextDecision
             // 
-            this.TextNewTextDialog.Location = new System.Drawing.Point(11, 93);
-            this.TextNewTextDialog.Multiline = true;
-            this.TextNewTextDialog.Name = "TextNewTextDialog";
-            this.TextNewTextDialog.Size = new System.Drawing.Size(127, 85);
-            this.TextNewTextDialog.TabIndex = 2;
+            this.TextNewTextDecision.Location = new System.Drawing.Point(11, 93);
+            this.TextNewTextDecision.Multiline = true;
+            this.TextNewTextDecision.Name = "TextNewTextDecision";
+            this.TextNewTextDecision.Size = new System.Drawing.Size(127, 85);
+            this.TextNewTextDecision.TabIndex = 2;
+            this.TextNewTextDecision.TextChanged += new System.EventHandler(this.TextNewTextDecision_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(77, 23);
+            this.label2.Location = new System.Drawing.Point(86, 24);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Personaje";
+            this.label2.Text = "Opciones";
             // 
-            // ComboCharacters
+            // ComboOptions
             // 
-            this.ComboCharacters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboCharacters.FormattingEnabled = true;
-            this.ComboCharacters.Location = new System.Drawing.Point(11, 39);
-            this.ComboCharacters.Name = "ComboCharacters";
-            this.ComboCharacters.Size = new System.Drawing.Size(127, 21);
-            this.ComboCharacters.TabIndex = 0;
+            this.ComboOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboOptions.FormattingEnabled = true;
+            this.ComboOptions.Location = new System.Drawing.Point(11, 39);
+            this.ComboOptions.Name = "ComboOptions";
+            this.ComboOptions.Size = new System.Drawing.Size(127, 21);
+            this.ComboOptions.TabIndex = 0;
+            this.ComboOptions.SelectedIndexChanged += new System.EventHandler(this.ComboOptions_SelectedIndexChanged);
             // 
-            // ButtonAddDecision
+            // ButtonResetAll
             // 
-            this.ButtonAddDecision.Location = new System.Drawing.Point(1080, 553);
-            this.ButtonAddDecision.Name = "ButtonAddDecision";
-            this.ButtonAddDecision.Size = new System.Drawing.Size(75, 43);
-            this.ButtonAddDecision.TabIndex = 9;
-            this.ButtonAddDecision.Text = "Añadir Decision";
-            this.ButtonAddDecision.UseVisualStyleBackColor = true;
-            this.ButtonAddDecision.Click += new System.EventHandler(this.ButtonAddDecision_Click);
+            this.ButtonResetAll.Location = new System.Drawing.Point(11, 541);
+            this.ButtonResetAll.Name = "ButtonResetAll";
+            this.ButtonResetAll.Size = new System.Drawing.Size(75, 23);
+            this.ButtonResetAll.TabIndex = 10;
+            this.ButtonResetAll.Text = "Reset todo";
+            this.ButtonResetAll.UseVisualStyleBackColor = true;
+            this.ButtonResetAll.Click += new System.EventHandler(this.ButtonResetAll_Click);
             // 
-            // Main
+            // ButtonDeleteThisOption
+            // 
+            this.ButtonDeleteThisOption.Location = new System.Drawing.Point(11, 293);
+            this.ButtonDeleteThisOption.Name = "ButtonDeleteThisOption";
+            this.ButtonDeleteThisOption.Size = new System.Drawing.Size(109, 23);
+            this.ButtonDeleteThisOption.TabIndex = 11;
+            this.ButtonDeleteThisOption.Text = "Borrar esta opción";
+            this.ButtonDeleteThisOption.UseVisualStyleBackColor = true;
+            this.ButtonDeleteThisOption.Click += new System.EventHandler(this.ButtonDeleteThisOption_Click);
+            // 
+            // MainDecision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1167, 608);
-            this.Controls.Add(this.ButtonAddDecision);
-            this.Controls.Add(this.DialogGroup);
-            this.Name = "Main";
-            this.ShowIcon = false;
-            this.Text = "Builder";
-            this.Load += new System.EventHandler(this.Main_Load);
-            this.DialogGroup.ResumeLayout(false);
-            this.DialogGroup.PerformLayout();
-            this.GroupItems.ResumeLayout(false);
-            this.GroupItems.PerformLayout();
+            this.ClientSize = new System.Drawing.Size(901, 588);
+            this.Controls.Add(this.DecisionGroup);
+            this.Name = "MainDecision";
+            this.Text = "MainDecision";
+            this.DecisionGroup.ResumeLayout(false);
+            this.DecisionGroup.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox DialogGroup;
-        private System.Windows.Forms.GroupBox GroupItems;
-        private System.Windows.Forms.Button ButtonAddItem;
-        private System.Windows.Forms.RadioButton RadioTypeItemStatus;
-        private System.Windows.Forms.RadioButton RadioTypeItemCharacter;
-        private System.Windows.Forms.RadioButton RadioTypeItemObject;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox TextItemName;
-        private System.Windows.Forms.ListBox ListStatuses;
-        private System.Windows.Forms.ListBox ListCharacters;
-        private System.Windows.Forms.ListBox ListObjects;
-        private System.Windows.Forms.Button ButtonResultLosesObject;
-        private System.Windows.Forms.Button ButtonResultGetsObject;
-        private System.Windows.Forms.Button ButtonConditionDoesntHaveObject;
-        private System.Windows.Forms.Button ButtonConditionHasObject;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox TextNewResultDialog;
-        private System.Windows.Forms.TextBox TextNewConditionDialog;
-        private System.Windows.Forms.TextBox TextNewTextDialog;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox ComboCharacters;
+        private System.Windows.Forms.GroupBox DecisionGroup;
+        private System.Windows.Forms.Button ButtonReset;
+        private System.Windows.Forms.Button ButtonNextDecision;
+        private System.Windows.Forms.Button ButtonNextDialog;
+        private System.Windows.Forms.Button ButtonAddDialog;
         private System.Windows.Forms.Button ButtonResultLosesFriend;
         private System.Windows.Forms.Button ButtonResultLosesStatus;
         private System.Windows.Forms.Button ButtonResultGetsFriend;
+        private System.Windows.Forms.Button ButtonResultLosesObject;
+        private System.Windows.Forms.Button ButtonChangeBackground;
         private System.Windows.Forms.Button ButtonResultGetsStatus;
         private System.Windows.Forms.Button ButtonConditionDoesntHaveFriend;
+        private System.Windows.Forms.Button ButtonResultGetsObject;
         private System.Windows.Forms.Button ButtonConditionHasFriend;
         private System.Windows.Forms.Button ButtonConditionDoesntHaveStatus;
         private System.Windows.Forms.Button ButtonConditionHasStatus;
-        private System.Windows.Forms.Button ButtonAddDialog;
-        private System.Windows.Forms.RadioButton RadioTypeItemBackground;
-        private System.Windows.Forms.Button ButtonChangeBackground;
+        private System.Windows.Forms.Button ButtonConditionDoesntHaveObject;
+        private System.Windows.Forms.Button ButtonConditionHasObject;
+        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ListBox ListBackground;
-        private System.Windows.Forms.Button ButtonNextDialog;
-        private System.Windows.Forms.Button ButtonReset;
-        private System.Windows.Forms.Button ButtonNextDecision;
-        private System.Windows.Forms.Button ButtonAddDecision;
+        private System.Windows.Forms.ListBox ListStatuses;
+        private System.Windows.Forms.ListBox ListCharacters;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListBox ListObjects;
+        private System.Windows.Forms.TextBox TextNewResultDecision;
+        private System.Windows.Forms.TextBox TextNewConditionDecision;
+        private System.Windows.Forms.TextBox TextNewTextDecision;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox ComboOptions;
+        private System.Windows.Forms.Button ButtonAddNewDecision;
+        private System.Windows.Forms.Button ButtonResetAll;
+        private System.Windows.Forms.Button ButtonDeleteThisOption;
     }
 }
-

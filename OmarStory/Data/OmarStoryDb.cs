@@ -117,6 +117,14 @@ namespace OmarStory.Data
         #endregion
 
         #region Decision
+        public static int AddDecisionData(IDbTransaction transaction, DecisionData newDecision)
+        {
+            int code = DbTable<DecisionData>.Insert(transaction, typeof(DecisionData).Name,
+                new DbValues("Id, Option, Text, Result, Condition",
+                newDecision.Id, newDecision.Option, newDecision.Text, newDecision.Result, newDecision.Condition));
+            return code;
+        }
+
         public static ICollection<DecisionData> SelectDecisionData(IDbConnection cnn)
         {
             try
