@@ -23,5 +23,14 @@ namespace OmarStory.Data
 
         [DbColumn()]
         public string Condition { get; set; }
+
+        public DecisionData()
+        {
+            Id = 0;
+            Option = 0;
+            Text = string.Empty;
+            Result = string.Empty;
+            Condition = string.Empty;
+        }
     }
 }

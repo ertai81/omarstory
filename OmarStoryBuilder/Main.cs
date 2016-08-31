@@ -249,7 +249,7 @@ namespace OmarStoryBuilder
 
         private void ButtonAddDialog_Click(object sender, EventArgs e)
         {
-            if (TextNewTextDialog.Text == string.Empty || TextNewResultDialog.Text == string.Empty)
+            if (TextNewTextDialog.Text == string.Empty)
             {
                 MessageBox.Show("Rellena todos los datos");
                 return;
@@ -295,17 +295,22 @@ namespace OmarStoryBuilder
 
         public string UpdateResult(string resultOriginal, string newNextStep)
         {
-            List<Result> results = Deserialize.ToListResults(resultOriginal).ToList();
-            
-            foreach(var result in results)
+            if (resultOriginal != string.Empty)
             {
-                if (result.Code == "D" || result.Code == "Q")
+                List<Result> results = Deserialize.ToListResults(resultOriginal).ToList();            
+                foreach (var result in results)
                 {
-                    result.Raw = newNextStep;
+                    if (result.Code == "D" || result.Code == "Q")
+                    {
+                        result.Raw = newNextStep;
+                    }
                 }
+                return Deserialize.FromListResults(results);
             }
-
-            return Deserialize.FromListResults(results);
+            else
+            {
+                return newNextStep;
+            }
         }
 
         private void ButtonReset_Click(object sender, EventArgs e)

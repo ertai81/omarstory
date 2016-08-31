@@ -279,8 +279,9 @@ namespace OmarStoryBuilder
 
         private void ButtonAddDecision_Click(object sender, EventArgs e)
         {
-            MainView.ReloadDecisions();
-            int newId = MainView.MainModel.AllDecisions.Max(x => x.Id) + 1;
+            MainView.ReloadDecisions();            
+            int newId = MainView.MainModel.AllDecisions.Count == 0 ? 1 :
+                        MainView.MainModel.AllDecisions.Max(x => x.Id) + 1;
 
             using (var session = DbContext.OpenSession(MainView.MainModel.DbProvider, MainView.MainModel.CnnString))
             {
@@ -295,7 +296,7 @@ namespace OmarStoryBuilder
                         continue;
                     }
 
-                    if (option.Text == string.Empty || option.Result == string.Empty)
+                    if (option.Text == string.Empty)
                     {
                         MessageBox.Show("Rellena todos los datos");
                         ComboOptions.SelectedIndex = Options.IndexOf(option);

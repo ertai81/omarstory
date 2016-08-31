@@ -11,8 +11,10 @@ namespace OmarStory.Resources
     {
         public static Dictionary<string, Bitmap> GetBitmap = new Dictionary<string, Bitmap>()
         {
+            { "Mujer", Resources.Images.Mujer },
             { "Omar", Resources.Images.Omar },
-            { "Iñaki", Resources.Images.Inaki }
+            { "Iñaki", Resources.Images.Inaki },
+            { "Narrador", Resources.Images.Narrador }
         };
     }
 }

@@ -23,5 +23,14 @@ namespace OmarStory.Data
 
         [DbColumn()]
         public string Condition { get; set; }
+
+        public DialogData()
+        {
+            Id = 0;
+            CharId = 0;
+            Text = string.Empty;
+            Result = string.Empty;
+            Condition = string.Empty;
+        }
     }
 }
