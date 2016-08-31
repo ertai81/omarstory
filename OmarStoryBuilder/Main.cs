@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OmarStory.Classes;
+using OmarStory.Converters;
 
 namespace OmarStoryBuilder
 {
@@ -266,12 +268,61 @@ namespace OmarStoryBuilder
 
                 OmarStoryDb.AddDialogData(session.Transaction, newDialog);
             }
+
+            //Updates previous Dialog or Decision if needed to
+            using (var session = DbContext.OpenSession(MainModel.DbProvider, MainModel.CnnString))
+            {
+                
+                int newDialogId = MainModel.AllDialogs.Count() + 1;
+
+                if (MainModel.DialogToConnectTo.Id != 0)
+                {
+                    MainModel.DialogToConnectTo.Result = UpdateResult
+                        (MainModel.DialogToConnectTo.Result, "D" + newDialogId.ToString("0000"));
+                    OmarStoryDb.UpdateDialogData(session.Transaction, MainModel.DialogToConnectTo);
+
+                }
+                else if (MainModel.DecisionToConnectTo.Id != 0)
+                {
+                    MainModel.DecisionToConnectTo.Result = UpdateResult(
+                        MainModel.DecisionToConnectTo.Result, "D" + newDialogId.ToString("0000"));
+                    OmarStoryDb.UpdateDecisionData(session.Transaction, MainModel.DecisionToConnectTo);
+                }
+            }
+
+            Reset();
+        }
+
+        public string UpdateResult(string resultOriginal, string newNextStep)
+        {
+            List<Result> results = Deserialize.ToListResults(resultOriginal).ToList();
+            
+            foreach(var result in results)
+            {
+                if (result.Code == "D" || result.Code == "Q")
+                {
+                    result.Raw = newNextStep;
+                }
+            }
+
+            return Deserialize.FromListResults(results);
         }
 
         private void ButtonReset_Click(object sender, EventArgs e)
         {
+            Reset();
+        }
+
+        public void Reset()
+        {
             ComboCharacters.SelectedIndex = 0;
             TextNewTextDialog.Text = TextNewResultDialog.Text = TextNewConditionDialog.Text = String.Empty;
+
+            MainModel.DialogToConnectTo = new DialogData();
+            MainModel.DecisionToConnectTo = new DecisionData();
+            TextConnectToStepText.Text = string.Empty;
+
+            ReloadItems();
         }
 
         private void ButtonNextDialog_Click(object sender, EventArgs e)
@@ -304,9 +355,62 @@ namespace OmarStoryBuilder
 
         private void ButtonAddDecision_Click(object sender, EventArgs e)
         {
-            MainDecision newDecision = new MainDecision(MainModel, this);
+            MainDecision newDecision = new MainDecision(this);
             newDecision.Show();
         }
+
+        private void ButtonConnectToDialog_Click(object sender, EventArgs e)
+        {
+            Dialogs dialogSelection = new Dialogs(this);
+            dialogSelection.ShowDialog();
+
+            if (dialogSelection.SelectedDialogId != 0)
+            {
+                int selectedDialogId = dialogSelection.SelectedDialogId;
+
+                MainModel.DecisionToConnectTo = new DecisionData();
+                MainModel.DialogToConnectTo = MainModel.AllDialogs.Single(x => x.Id == selectedDialogId);
+                
+                TextConnectToStepText.Text = MainModel.DialogToConnectTo.Text;
+            }
+        }
+
+        private void ButtonConnectToDecision_Click(object sender, EventArgs e)
+        {
+            Decisions decisionSelection = new Decisions(this);
+            decisionSelection.ShowDialog();
+
+            if (decisionSelection.SelectedDecisionId != 0)
+            {
+                int selectedDecisionId = decisionSelection.SelectedDecisionId;
+                int selectedDecisionOption = decisionSelection.SelectedDecisionOption;
+
+                MainModel.DialogToConnectTo = new DialogData();
+                MainModel.DecisionToConnectTo = MainModel.AllDecisions.Single(x =>
+                    x.Id == selectedDecisionId && x.Option == selectedDecisionOption);
+                
+                TextConnectToStepText.Text = MainModel.DecisionToConnectTo.Text;
+            }
+        }
         #endregion
+
+        private void TextNewTextDialog_TextChanged(object sender, EventArgs e)
+        {
+            if (TextNewTextDialog.Text.Length > 190)
+            {
+                MessageBox.Show("Límite de caracteres alcanzado");
+                TextNewTextDialog.Text = TextNewTextDialog.Text.Substring(0, 190);
+            }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextConnectToStepText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

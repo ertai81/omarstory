@@ -16,6 +16,7 @@ namespace OmarStoryBuilder
         Main Main;
 
         public int SelectedDecisionId;
+        public int SelectedDecisionOption;
 
         public Decisions(Main main)
         {
@@ -39,6 +40,7 @@ namespace OmarStoryBuilder
             if (selectedDecision != null)
             {
                 SelectedDecisionId = selectedDecision.Id;
+                SelectedDecisionOption = selectedDecision.Option;
                 this.Close();
             }
         }
