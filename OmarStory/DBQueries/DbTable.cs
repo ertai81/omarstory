@@ -569,21 +569,46 @@ namespace OmarStory.DBQueries
             return rowsInserted;
         }
 
-        public static int Insert(IDbTransaction trans, DbValues values, bool replace = false)
+        public static int Insert(IDbTransaction trans, string table, DbValues values, bool replace = false)
         {
-            using (var command = trans.Connection.CreateCommand())
+            try
             {
-                command.Transaction = trans;
-                command.CommandText = string.Format("{0} INTO {1} ({2}) VALUES (@{3})",
-                                                    replace ? "REPLACE" : "INSERT",
-                                                    typeof(T).Name,
-                                                    join(",", values.Columns),
-                                                    join(",@", values.Columns));
+                using (var command = trans.Connection.CreateCommand())
+                {
+                    command.Transaction = trans;
+                    command.CommandText = string.Format("{0} INTO {1} ({2}) VALUES (@{3})",
+                                                        replace ? "REPLACE" : "INSERT",
+                                                        table,
+                                                        join(",", values.Columns),
+                                                        join(",@", values.Columns));
 
-                foreach (var col in values.Columns)
-                    addParameter(command, name: col, value: values[col]);
+                    foreach (var col in values.Columns)
+                        addParameter(command, name: col, value: values[col]);
 
-                return command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
+                }
+                trans.Commit();
+                return 0;
+            }
+            catch(Exception e)
+            {
+                return -1;
+            }
+        }
+
+        private static void bindParameters(object item, IEnumerable<PropertyInfo> properties, IDataParameterCollection parameters)
+        {
+            foreach (var property in properties)
+            {
+                var value = property.GetValue(item, null);
+
+                // The code below has been moved to DbTable<T>.setParameterValue()
+                //if (value != null && value is DateTime)
+                //    value = ((DateTime)value).ToUniversalTime();
+
+                var par = parameters[property.Name] as IDbDataParameter;
+                if (par != null)
+                    par.Value = value;
             }
         }
 
