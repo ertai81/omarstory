@@ -49,8 +49,6 @@ namespace OmarStory.ViewModels
             Model.DecisionsVisibility = System.Windows.Visibility.Collapsed;
 
             GetAllItems();
-
-            //Triggers
         }
 
         public void NewGame()
@@ -64,16 +62,18 @@ namespace OmarStory.ViewModels
         }
 
         #region Next step
-        public Step NextStep
+        public void CallNextStep()
         {
-            get
+            //Current step will be replaced with the next step that it's going to load
+            Model.CurrentStep = Model.NextStep;
+
+            if (IsNextStepDecision())
             {
-                return Model.NextStep;
+                ShowDecision(Model.NextStep.Id);
             }
-            set
+            else
             {
-                Model.NextStep = value;
-                NotifyPropertyChanged();
+                ShowDialog(Model.NextStep.Id);
             }
         }
 
@@ -273,20 +273,21 @@ namespace OmarStory.ViewModels
             //Save background
             stringSave += "B" + Model.CurrentBackground.Id.ToString("0000") + ".";
 
-            //Save items
+            //Save items with "R" after the type so that the system 
+            //understands that the player has to receive the item
             foreach(var obj in Global.Inventory.Objects)
             {
-                stringSave += "O" + obj.Id.ToString("0000") + ".";
+                stringSave += "OR" + obj.Id.ToString("0000") + ".";
             }
 
             foreach (var friends in Global.Inventory.Friends)
             {
-                stringSave += "F" + friends.Id.ToString("0000") + ".";
+                stringSave += "FR" + friends.Id.ToString("0000") + ".";
             }
 
             foreach (var status in Global.Inventory.Statuses)
             {
-                stringSave += "S" + status.Id.ToString("0000") + ".";
+                stringSave += "SR" + status.Id.ToString("0000") + ".";
             }
 
             string encryptString = Crypto.EncryptStringAES(stringSave, "ogZ7aYQCv6zCky");
@@ -317,29 +318,8 @@ namespace OmarStory.ViewModels
             }
             string loadData = Crypto.DecryptStringAES(encryptedString, "ogZ7aYQCv6zCky");
 
-            List<Result> results = Converters.Deserialize.ToListResults(loadData).ToList();
-
-            foreach (var result in results)
-            {
-                switch (result.Code)
-                {
-                    case "D":
-                    case "Q":
-                        //Save in next step
-                        break;
-
-                    case "B":
-                        //Save in current background
-                        break;
-
-                    default:
-                        //Save in its correspondent item list
-                        break;
-                }
-            }
-            
-            //TODO: Move "NextStep()" to MainViewModel (here)
-            //NextStep();
+            DialogActions loadActions = new DialogActions(this, new DialogData() { Result = loadData });
+            loadActions.AnalizeResults(false);
         }
         #endregion
     }

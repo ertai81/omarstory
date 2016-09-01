@@ -77,7 +77,7 @@ namespace OmarStory.Actions
         #endregion
 
         #region Result
-        public void AnalizeResults(MainViewModel ViewModel, string resultString)
+        public void AnalizeResults(MainViewModel ViewModel, string resultString, bool showPopUpMessages)
         {
             List<Result> results = Converters.Deserialize.ToListResults(resultString).ToList();
 
@@ -88,7 +88,11 @@ namespace OmarStory.Actions
                 if (result.IsInventoryUpdate)
                 {
                     UpdateInventory(result);
-                    ShowMessage(result);
+
+                    if (showPopUpMessages)
+                    {
+                        ShowMessage(result);
+                    }
                 }
 
                 if (IsBackgroundChange(result.Code))
