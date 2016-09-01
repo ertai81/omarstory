@@ -63,6 +63,9 @@ namespace OmarStory
             MainViewModel mainView = DataContext as MainViewModel;
             if (mainView != null)
             {
+                //Current step will be replaced with the next step that it's going to load
+                mainView.Model.CurrentStep = mainView.Model.NextStep;
+
                 if (mainView.IsNextStepDecision())
                 {
                     mainView.ShowDecision(mainView.NextStep.Id);

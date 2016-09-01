@@ -83,6 +83,8 @@
     <Compile Include="Actions\CommonActions.cs" />
     <Compile Include="Actions\DecisionActions.cs" />
     <Compile Include="Actions\DialogActions.cs" />
+    <Compile Include="Classes\Background.cs" />
+    <Compile Include="Classes\Character.cs" />
     <Compile Include="Classes\Condition.cs" />
     <Compile Include="Classes\Step.cs" />
     <Compile Include="Classes\Result.cs" />

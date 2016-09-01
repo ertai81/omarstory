@@ -120,7 +120,10 @@ namespace OmarStory.Converters
 
             foreach (var res in str.Split('.'))
             {
-                result.Add(new Result(res));
+                if (res != string.Empty)
+                {
+                    result.Add(new Result(res));
+                }
             }
 
             return result;

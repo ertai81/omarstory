@@ -47,6 +47,42 @@ namespace OmarStoryBuilder
             ReloadDecisions();
         }
 
+
+        #region Methods
+        public string UpdateResultString(string resultOriginal, string newNextStep)
+        {
+            if (resultOriginal != string.Empty)
+            {
+                List<Result> results = Deserialize.ToListResults(resultOriginal).ToList();
+                foreach (var result in results)
+                {
+                    if (result.Code == "D" || result.Code == "Q")
+                    {
+                        result.Raw = newNextStep;
+                    }
+                }
+                return Deserialize.FromListResults(results);
+            }
+            else
+            {
+                return newNextStep;
+            }
+        }
+
+        public void ResetDialog()
+        {
+            ComboCharacters.SelectedIndex = 0;
+            TextNewTextDialog.Text = TextNewResultDialog.Text = TextNewConditionDialog.Text = String.Empty;
+
+            MainModel.DialogToConnectTo = new DialogData();
+            MainModel.DecisionToConnectTo = new DecisionData();
+            TextConnectToStepText.Text = string.Empty;
+
+            ReloadItems();
+            ReloadDialogs();
+            ReloadDecisions();
+        }
+
         public void ReloadDialogs()
         {
             try
@@ -100,6 +136,7 @@ namespace OmarStoryBuilder
                 MessageBox.Show(e.Message);
             }
         }
+        #endregion
 
         #region Buttons
         private void ButtonAddItem_Click(object sender, EventArgs e)
@@ -247,7 +284,7 @@ namespace OmarStoryBuilder
             TextNewResultDialog.Text += isFirstResult ? result : "." + result;
         }
 
-        private void ButtonAddDialog_Click(object sender, EventArgs e)
+        private void ButtonAddDialogToDB_Click(object sender, EventArgs e)
         {
             if (TextNewTextDialog.Text == string.Empty)
             {
@@ -277,85 +314,28 @@ namespace OmarStoryBuilder
 
                 if (MainModel.DialogToConnectTo.Id != 0)
                 {
-                    MainModel.DialogToConnectTo.Result = UpdateResult
+                    MainModel.DialogToConnectTo.Result = UpdateResultString
                         (MainModel.DialogToConnectTo.Result, "D" + newDialogId.ToString("0000"));
                     OmarStoryDb.UpdateDialogData(session.Transaction, MainModel.DialogToConnectTo);
 
                 }
                 else if (MainModel.DecisionToConnectTo.Id != 0)
                 {
-                    MainModel.DecisionToConnectTo.Result = UpdateResult(
+                    MainModel.DecisionToConnectTo.Result = UpdateResultString(
                         MainModel.DecisionToConnectTo.Result, "D" + newDialogId.ToString("0000"));
                     OmarStoryDb.UpdateDecisionData(session.Transaction, MainModel.DecisionToConnectTo);
                 }
             }
 
-            Reset();
-        }
-
-        public string UpdateResult(string resultOriginal, string newNextStep)
-        {
-            if (resultOriginal != string.Empty)
-            {
-                List<Result> results = Deserialize.ToListResults(resultOriginal).ToList();            
-                foreach (var result in results)
-                {
-                    if (result.Code == "D" || result.Code == "Q")
-                    {
-                        result.Raw = newNextStep;
-                    }
-                }
-                return Deserialize.FromListResults(results);
-            }
-            else
-            {
-                return newNextStep;
-            }
+            //We keep the current character
+            int currentCharacter = ComboCharacters.SelectedIndex;
+            ResetDialog();
+            ComboCharacters.SelectedIndex = currentCharacter;
         }
 
         private void ButtonReset_Click(object sender, EventArgs e)
         {
-            Reset();
-        }
-
-        public void Reset()
-        {
-            ComboCharacters.SelectedIndex = 0;
-            TextNewTextDialog.Text = TextNewResultDialog.Text = TextNewConditionDialog.Text = String.Empty;
-
-            MainModel.DialogToConnectTo = new DialogData();
-            MainModel.DecisionToConnectTo = new DecisionData();
-            TextConnectToStepText.Text = string.Empty;
-
-            ReloadItems();
-        }
-
-        private void ButtonNextDialog_Click(object sender, EventArgs e)
-        {
-            string nextDialog = string.Empty;
-            Dialogs dialogSelection = new Dialogs(this);
-            dialogSelection.ShowDialog();
-
-            if (dialogSelection.SelectedDialogId != 0)
-            {
-                int selectedDialogId = dialogSelection.SelectedDialogId;
-                nextDialog = "D" + selectedDialogId.ToString("0000");
-            }
-            TextNewResultDialog.Text += isFirstResult ? nextDialog : "." + nextDialog;
-        }
-
-        private void ButtonNextDecision_Click(object sender, EventArgs e)
-        {
-            string nextDecision = string.Empty;
-            Decisions decisionSelection = new Decisions(this);
-            decisionSelection.ShowDialog();
-
-            if (decisionSelection.SelectedDecisionId != 0)
-            {
-                int selectedDialogId = decisionSelection.SelectedDecisionId;
-                nextDecision = "Q" + selectedDialogId.ToString("0000");
-            }
-            TextNewResultDialog.Text += isFirstResult ? nextDecision : "." + nextDecision;
+            ResetDialog();
         }
 
         private void ButtonAddDecision_Click(object sender, EventArgs e)
@@ -364,6 +344,7 @@ namespace OmarStoryBuilder
             newDecision.Show();
         }
 
+        #region Connect to previous step
         private void ButtonConnectToDialog_Click(object sender, EventArgs e)
         {
             Dialogs dialogSelection = new Dialogs(this);
@@ -409,6 +390,38 @@ namespace OmarStoryBuilder
         }
         #endregion
 
+        #region Connect to later step
+        private void ButtonNextDialog_Click(object sender, EventArgs e)
+        {
+            string nextDialog = string.Empty;
+            Dialogs dialogSelection = new Dialogs(this);
+            dialogSelection.ShowDialog();
+
+            if (dialogSelection.SelectedDialogId != 0)
+            {
+                int selectedDialogId = dialogSelection.SelectedDialogId;
+                nextDialog = "D" + selectedDialogId.ToString("0000");
+            }
+            TextNewResultDialog.Text += isFirstResult ? nextDialog : "." + nextDialog;
+        }
+
+        private void ButtonNextDecision_Click(object sender, EventArgs e)
+        {
+            string nextDecision = string.Empty;
+            Decisions decisionSelection = new Decisions(this);
+            decisionSelection.ShowDialog();
+
+            if (decisionSelection.SelectedDecisionId != 0)
+            {
+                int selectedDialogId = decisionSelection.SelectedDecisionId;
+                nextDecision = "Q" + selectedDialogId.ToString("0000");
+            }
+            TextNewResultDialog.Text += isFirstResult ? nextDecision : "." + nextDecision;
+        }
+        #endregion
+        #endregion
+
+        #region Other events
         private void TextNewTextDialog_TextChanged(object sender, EventArgs e)
         {
             if (TextNewTextDialog.Text.Length > 190)
@@ -417,5 +430,6 @@ namespace OmarStoryBuilder
                 TextNewTextDialog.Text = TextNewTextDialog.Text.Substring(0, 190);
             }
         }
+        #endregion
     }
 }

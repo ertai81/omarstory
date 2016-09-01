@@ -8,13 +8,25 @@ namespace OmarStory.Classes
 {
     public class Step
     {
-        public string Code { get; set; }
-        public int Id { get; set; }
+        public string Raw { get; set; }
+        public string Code
+        {
+            get
+            {
+                return Raw.Substring(0, 1);
+            }
+        }
+        public int Id
+        {
+            get
+            {
+                return Converters.Support.ToInt(Raw.Substring(1, Raw.Length - 1));
+            }
+        }
 
         public Step(Result result)
         {
-            Code = result.Code;
-            Id = result.Id;
+            Raw = result.Raw;
         }
 
         public bool IsDecision()

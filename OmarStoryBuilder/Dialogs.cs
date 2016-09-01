@@ -16,7 +16,10 @@ namespace OmarStoryBuilder
         Main Main;
 
         public int SelectedDialogId;
-        
+
+        private int CharacterFilter = 0;
+        private string TextFilter = string.Empty;
+
         public Dialogs(Main main)
         {
             InitializeComponent();
@@ -27,6 +30,12 @@ namespace OmarStoryBuilder
         {
             Main.ReloadDialogs();
             GridDialogs.DataSource = Main.MainModel.AllDialogs.OrderByDescending(x => x.Id).ToList();
+
+            //Prepare list characters
+            List<string> Characters = new List<string>();
+            Characters.Add("TODOS");
+            Characters.AddRange(Main.MainModel.AllChars.Select(x => x.Name));
+            ComboCharactersFilter.DataSource = Characters;
 
             foreach (DataGridViewColumn column in GridDialogs.Columns)
             {
@@ -46,6 +55,43 @@ namespace OmarStoryBuilder
                 SelectedDialogId = selectedDialog.Id;
                 this.Close();
             }
+        }
+
+        private void ComboCharactersFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CharacterFilter = ComboCharactersFilter.SelectedIndex;
+            ApplyFilter();
+        }
+
+        private void TextFilterText_TextChanged(object sender, EventArgs e)
+        {
+            TextFilter = TextFilterText.Text;
+            ApplyFilter();
+        }
+
+        private void ApplyFilter()
+        {
+            var filteredDialogs = Main.MainModel.AllDialogs.OrderByDescending(x => x.Id).ToList();
+
+            //First apply the character filter
+            if (CharacterFilter > 0)
+            {
+                filteredDialogs = filteredDialogs.Where(x => x.CharId == CharacterFilter).ToList();
+            }
+
+            //Apply the text filter
+            if (TextFilter != string.Empty)
+            {
+                filteredDialogs = filteredDialogs.Where(x => x.Text.ToLower().Contains(TextFilter.ToLower())).ToList();
+            }
+
+            GridDialogs.DataSource = filteredDialogs;
+        }
+
+        private void ButtonResetFilter_Click(object sender, EventArgs e)
+        {
+            ComboCharactersFilter.SelectedIndex = 0;
+            TextFilterText.Text = string.Empty;
         }
     }
 }

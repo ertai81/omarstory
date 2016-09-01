@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -58,7 +59,8 @@ namespace OmarStory.ViewModels
             ChangeCharacter("Omar");
             UpdateBackgound("Aeropuerto");
 
-            ShowDialog(1);
+            Model.CurrentStep = new Step(new Result("D0001"));
+            ShowDialog(Model.CurrentStep.Id);
         }
 
         #region Next step
@@ -107,23 +109,18 @@ namespace OmarStory.ViewModels
 
         public void ChangeCharacter(string name)
         {
-            try
-            {
-                Model.CurrentChar = Global.AllItemsDB.AllChars.Single(x => x.Name == name);
-                UpdateCurrentCharImage(Model.CurrentChar.Name);
-            }
-            catch
-            {
-                ShowError("Personaje no encontrado");
-            }
+            ChangeCharacter(Global.AllItemsDB.AllChars.Single(x => x.Name == name).Id);
         }
 
         public void ChangeCharacter(int id)
         {
             try
             {
-                Model.CurrentChar = Global.AllItemsDB.AllChars.Single(x => x.Id == id);
-                UpdateCurrentCharImage(Model.CurrentChar.Name);
+                Character newCharacter = new Character();
+                newCharacter.Data = Global.AllItemsDB.AllChars.Single(x => x.Id == id);
+                newCharacter.Image = Converters.BitmapConversion.ToWpfBitmap(Resources.CharImagesList.GetBitmap[newCharacter.Name]);
+
+                Model.CurrentChar = newCharacter;
             }
             catch
             {
@@ -248,29 +245,101 @@ namespace OmarStory.ViewModels
         }
         #endregion
 
-        #region Images
-        private void UpdateCurrentCharImage(string name)
-        {
-            try
-            {
-                Model.CurrentCharImage = Converters.BitmapConversion.ToWpfBitmap(Resources.CharImagesList.GetBitmap[name]);
-            }
-            catch
-            {
-                ShowError(String.Format("Imagen no encontrada: {0}", name));
-            }
-        }
-
+        #region Background
         public void UpdateBackgound(string name)
         {
             try
             {
-                Model.CurrentBackground = Converters.BitmapConversion.ToWpfBitmap(Resources.BackgroundImagesList.GetBitmap[name]);
+                Background newBackground = new Background();
+                newBackground.Data = AllItemsDB.AllBackgrounds.Single(x => x.Name == name);
+                newBackground.Image = Converters.BitmapConversion.ToWpfBitmap(Resources.BackgroundImagesList.GetBitmap[name]);
+                Model.CurrentBackground = newBackground;
             }
             catch
             {
                 ShowError(String.Format("Fondo no encontrado: {0}", name));
             }
+        }
+        #endregion
+
+        #region Save/Load data
+        public void SaveData(string file)
+        {
+            string stringSave = string.Empty;
+
+            //Save current dialog/decision
+            stringSave += Model.CurrentStep.Raw + ".";
+
+            //Save background
+            stringSave += "B" + Model.CurrentBackground.Id.ToString("0000") + ".";
+
+            //Save items
+            foreach(var obj in Global.Inventory.Objects)
+            {
+                stringSave += "O" + obj.Id.ToString("0000") + ".";
+            }
+
+            foreach (var friends in Global.Inventory.Friends)
+            {
+                stringSave += "F" + friends.Id.ToString("0000") + ".";
+            }
+
+            foreach (var status in Global.Inventory.Statuses)
+            {
+                stringSave += "S" + status.Id.ToString("0000") + ".";
+            }
+
+            string encryptString = Crypto.EncryptStringAES(stringSave, "ogZ7aYQCv6zCky");
+
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
+
+            using (FileStream fs = File.Create(file))
+            {
+                // Add some text to file
+                Byte[] saveCode = new UTF8Encoding(true).GetBytes(encryptString);
+                fs.Write(saveCode, 0, saveCode.Length);
+            }
+        }
+
+        public void LoadData(string file)
+        {
+            string encryptedString = "";
+            using (StreamReader sr = File.OpenText(file))
+            {
+                string line = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    encryptedString += line;
+                }
+            }
+            string loadData = Crypto.DecryptStringAES(encryptedString, "ogZ7aYQCv6zCky");
+
+            List<Result> results = Converters.Deserialize.ToListResults(loadData).ToList();
+
+            foreach (var result in results)
+            {
+                switch (result.Code)
+                {
+                    case "D":
+                    case "Q":
+                        //Save in next step
+                        break;
+
+                    case "B":
+                        //Save in current background
+                        break;
+
+                    default:
+                        //Save in its correspondent item list
+                        break;
+                }
+            }
+            
+            //TODO: Move "NextStep()" to MainViewModel (here)
+            //NextStep();
         }
         #endregion
     }

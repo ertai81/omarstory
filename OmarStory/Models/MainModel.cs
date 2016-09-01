@@ -34,6 +34,20 @@ namespace OmarStory.Models
             NotifyPropertyChanged("CurrentInventory");
         }
 
+        private Step currentStep;
+        public Step CurrentStep
+        {
+            get
+            {
+                return currentStep;
+            }
+            set
+            {
+                currentStep = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private Step nextStep;
         public Step NextStep
         {
@@ -49,8 +63,8 @@ namespace OmarStory.Models
         }
 
         #region Properties for the Footer
-        private CharacterData currentChar;
-        public CharacterData CurrentChar
+        private Character currentChar;
+        public Character CurrentChar
         {
             get
             {
@@ -63,22 +77,8 @@ namespace OmarStory.Models
             }
         }
 
-        private BitmapSource currentCharImage;
-        public BitmapSource CurrentCharImage
-        {
-            get
-            {
-                return currentCharImage;
-            }
-            set
-            {
-                currentCharImage = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private BitmapSource currentBackground;
-        public BitmapSource CurrentBackground
+        private Background currentBackground;
+        public Background CurrentBackground
         {
             get
             {
