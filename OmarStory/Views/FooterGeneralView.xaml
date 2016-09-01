@@ -11,7 +11,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Column="0" Margin="5,5,5,5" x:Name="ImageActiveChar" Source="{Binding Model.CurrentCharImage}">
+        <Image Grid.Column="0" Margin="5,5,5,5" x:Name="ImageActiveChar" Source="{Binding Model.CurrentChar.Image}">
         </Image>
         
         <Grid Grid.Column="1" Background="Black">

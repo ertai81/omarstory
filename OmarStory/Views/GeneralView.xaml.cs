@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -23,8 +22,6 @@ namespace OmarStory.Views
     /// </summary>
     public partial class GeneralView : UserControl
     {
-        MainViewModel MainView;
-
         public GeneralView()
         {
             InitializeComponent();
@@ -42,8 +39,8 @@ namespace OmarStory.Views
 
         private void Options_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            MainView = DataContext as MainViewModel;
-            if (MainView == null)
+            MainViewModel mainView = DataContext as MainViewModel;
+            if (mainView == null)
                 return;
 
             Border selection = sender as Border;
@@ -56,21 +53,41 @@ namespace OmarStory.Views
             if (selectedDecision == null)
                 return;
 
-            MainView.AnalyzeSelectedDecision(selectedDecision);
+            mainView.AnalyzeSelectedDecision(selectedDecision);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.RestoreDirectory = true;
-            saveDialog.Title = "Guardar";
-            saveDialog.DefaultExt = ".omarsave";
-            saveDialog.Filter = "Omar files (*.omarsave)|*.omarsave";
-            DialogResult result = saveDialog.ShowDialog();
+            MainViewModel mainView = DataContext as MainViewModel;
+            if (mainView == null)
+                return;
 
-            string file = saveDialog.FileName;
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog.RestoreDirectory = true;
+            saveFileDialog.Title = "Guardar";
+            saveFileDialog.DefaultExt = ".omarsave";
+            saveFileDialog.Filter = "Omar files (*.omarsave)|*.omarsave";
+            System.Windows.Forms.DialogResult result = saveFileDialog.ShowDialog();
 
-            MainView.
+            if (saveFileDialog.FileName != string.Empty)
+                mainView.SaveData(saveFileDialog.FileName);
+        }
+
+        private void ButtonLoad_Click(object sender, RoutedEventArgs e)
+        {
+            MainViewModel mainView = DataContext as MainViewModel;
+            if (mainView == null)
+                return;
+
+            System.Windows.Forms.OpenFileDialog loadFileDialog = new System.Windows.Forms.OpenFileDialog();
+            loadFileDialog.RestoreDirectory = true;
+            loadFileDialog.Title = "Cargar";
+            loadFileDialog.DefaultExt = ".omarsave";
+            loadFileDialog.Filter = "Omar files (*.omarsave)|*.omarsave";
+            System.Windows.Forms.DialogResult result = loadFileDialog.ShowDialog();
+
+            if (loadFileDialog.FileName != string.Empty)
+                mainView.LoadData(loadFileDialog.FileName);
         }
     }
 }

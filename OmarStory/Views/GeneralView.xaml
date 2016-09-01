@@ -24,7 +24,7 @@
 
         <Grid Grid.Column="0">
             <Border BorderThickness="5" BorderBrush="Black">
-                <Image x:Name="ImageBackground" Source="{Binding Model.CurrentBackground}" Stretch="Fill"/>
+                <Image x:Name="ImageBackground" Source="{Binding Model.CurrentBackground.Image}" Stretch="Fill"/>
             </Border>
 
             <Grid x:Name="GridDecisions" Width="250" Height="400" Visibility="{Binding Model.DecisionsVisibility}">
@@ -119,8 +119,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="Guardar" Background="Black" Foreground="White" Margin="5,0,5,5" Click="Button_Click"/>
-                <Button Grid.Column="1" Content="Cargar" Background="Black" Foreground="White" Margin="5,0,5,5"/>
+                <Button x:Name="ButtonSave" Grid.Column="0" Content="Guardar" Background="Black" Foreground="White" Margin="5,0,5,5" Click="ButtonSave_Click"/>
+                <Button x:Name="ButtonLoad" Grid.Column="1" Content="Cargar" Background="Black" Foreground="White" Margin="5,0,5,5" Click="ButtonLoad_Click"/>
             </Grid>
         </Grid>
     </Grid>
