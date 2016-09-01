@@ -18,6 +18,9 @@ namespace OmarStoryBuilder
         public int SelectedDecisionId;
         public int SelectedDecisionOption;
 
+        string TextFilter = string.Empty;
+        int DecisionNumberFilter = 0;
+
         public Decisions(Main main)
         {
             InitializeComponent();
@@ -43,6 +46,46 @@ namespace OmarStoryBuilder
                 SelectedDecisionOption = selectedDecision.Option;
                 this.Close();
             }
+        }
+
+        private void TextFilterText_TextChanged(object sender, EventArgs e)
+        {
+            TextFilter = TextFilterText.Text;
+            ApplyFilter();
+        }
+
+        private void TextDecisionNumber_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(TextDecisionNumber.Text, out DecisionNumberFilter) == false)
+            {
+                DecisionNumberFilter = 0;
+            }
+
+            ApplyFilter();
+        }
+
+        private void ButtonResetFilter_Click(object sender, EventArgs e)
+        {
+            TextFilterText.Text = TextDecisionNumber.Text = string.Empty;
+        }
+
+        private void ApplyFilter()
+        {
+            var filteredDecisions = Main.MainModel.AllDecisions.OrderByDescending(x => x.Id).ToList();
+
+            //First apply the character filter
+            if (DecisionNumberFilter > 0)
+            {
+                filteredDecisions = filteredDecisions.Where(x => x.Id == DecisionNumberFilter).ToList();
+            }
+
+            //Apply the text filter
+            if (TextFilter != string.Empty)
+            {
+                filteredDecisions = filteredDecisions.Where(x => x.Text.ToLower().Contains(TextFilter.ToLower())).ToList();
+            }
+
+            GridDecisions.DataSource = filteredDecisions;
         }
     }
 }

@@ -34,7 +34,6 @@ namespace OmarStoryBuilder
             }
         }
 
-
         private bool isFirstCondition
         {
             get
@@ -66,6 +65,42 @@ namespace OmarStoryBuilder
             ListBackground.DataSource = MainView.MainModel.AllBackgrounds.Select(x => x.Name).ToList();
         }
 
+        #region Methods
+        private void ResetFields()
+        {
+            TextNewTextDecision.Text = TextNewResultDecision.Text = TextNewConditionDecision.Text = String.Empty;
+        }
+
+        private void ResetAllOptions()
+        {
+            MainView.MainModel.DialogToConnectTo = new DialogData();
+            TextConnectToStepText.Text = string.Empty;
+
+            ComboOptions.Items.Clear();
+            Options = new List<DecisionData>();
+            AddNewOption();
+
+            ResetFields();
+            MainView.ReloadItems();
+        }
+
+        private void AddNewOption()
+        {
+            if (CurrentNumberOptions == 4)
+            {
+                MessageBox.Show("No puedes añadir más de 4 opciones");
+            }
+
+            //Add new option
+            ComboOptions.Items.Add(CurrentNumberOptions.ToString());
+            Options.Add(new DecisionData());
+
+            ComboOptions.SelectedIndex = CurrentNumberOptions - 1;
+            ResetFields();
+        }
+        #endregion
+
+        #region Buttons
         private void ButtonConditionItem_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
@@ -208,76 +243,12 @@ namespace OmarStoryBuilder
             ResetFields();
         }
 
-        private void ResetFields()
-        {
-            TextNewTextDecision.Text = TextNewResultDecision.Text = TextNewConditionDecision.Text = String.Empty;
-        }
-
-        private void ResetAllOptions()
-        {
-            MainView.MainModel.DialogToConnectTo = new DialogData();
-            TextConnectToStepText.Text = string.Empty;
-
-            ComboOptions.Items.Clear();
-            Options = new List<DecisionData>();
-            AddNewOption();
-
-            ResetFields();
-            MainView.ReloadItems();
-        }
-
-        private void ButtonAddNewDecision_Click(object sender, EventArgs e)
+        private void ButtonAddNewOption_Click(object sender, EventArgs e)
         {
             AddNewOption();
         }
 
-        private void AddNewOption()
-        {
-            if (CurrentNumberOptions == 4)
-            {
-                MessageBox.Show("No puedes añadir más de 4 opciones");
-            }
-
-            //Add new option
-            ComboOptions.Items.Add(CurrentNumberOptions.ToString());
-            Options.Add(new DecisionData());
-
-            ComboOptions.SelectedIndex = CurrentNumberOptions - 1;
-            ResetFields();
-        }
-
-        private void ComboOptions_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            TextNewTextDecision.Text = Options[CurrentOption].Text;
-            TextNewConditionDecision.Text = Options[CurrentOption].Condition;
-            TextNewResultDecision.Text = Options[CurrentOption].Result;
-        }
-
-        private void TextNewTextDecision_TextChanged(object sender, EventArgs e)
-        {
-            if (TextNewTextDecision.Text.Length > 190)
-            {
-                MessageBox.Show("Límite de caracteres alcanzado");
-                TextNewTextDecision.Text = TextNewTextDecision.Text.Substring(0, 190);
-            }
-
-            if (Options[CurrentOption] != null)
-                Options[CurrentOption].Text = TextNewTextDecision.Text;
-        }
-
-        private void TextNewConditionDecision_TextChanged(object sender, EventArgs e)
-        {
-            if (Options[CurrentOption] != null)
-                Options[CurrentOption].Condition = TextNewConditionDecision.Text;
-        }
-
-        private void TextNewResultDecision_TextChanged(object sender, EventArgs e)
-        {
-            if (Options[CurrentOption] != null)
-                Options[CurrentOption].Result = TextNewResultDecision.Text;
-        }
-
-        private void ButtonAddDecision_Click(object sender, EventArgs e)
+        private void ButtonAddDecisionToDB_Click(object sender, EventArgs e)
         {
             MainView.ReloadDecisions();            
             int newId = MainView.MainModel.AllDecisions.Count == 0 ? 1 :
@@ -324,7 +295,7 @@ namespace OmarStoryBuilder
             {
                 if (MainView.MainModel.DialogToConnectTo.Id != 0)
                 {
-                    MainView.MainModel.DialogToConnectTo.Result = MainView.UpdateResult
+                    MainView.MainModel.DialogToConnectTo.Result = MainView.UpdateResultString
                         (MainView.MainModel.DialogToConnectTo.Result, "Q" + newId.ToString("0000"));
                     OmarStoryDb.UpdateDialogData(session.Transaction, MainView.MainModel.DialogToConnectTo);
                 }
@@ -377,5 +348,39 @@ namespace OmarStoryBuilder
                 TextConnectToStepText.Text = MainView.MainModel.DialogToConnectTo.Text;
             }
         }
+        #endregion
+
+        #region Other events
+        private void ComboOptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TextNewTextDecision.Text = Options[CurrentOption].Text;
+            TextNewConditionDecision.Text = Options[CurrentOption].Condition;
+            TextNewResultDecision.Text = Options[CurrentOption].Result;
+        }
+
+        private void TextNewTextDecision_TextChanged(object sender, EventArgs e)
+        {
+            if (TextNewTextDecision.Text.Length > 190)
+            {
+                MessageBox.Show("Límite de caracteres alcanzado");
+                TextNewTextDecision.Text = TextNewTextDecision.Text.Substring(0, 190);
+            }
+
+            if (Options[CurrentOption] != null)
+                Options[CurrentOption].Text = TextNewTextDecision.Text;
+        }
+
+        private void TextNewConditionDecision_TextChanged(object sender, EventArgs e)
+        {
+            if (Options[CurrentOption] != null)
+                Options[CurrentOption].Condition = TextNewConditionDecision.Text;
+        }
+
+        private void TextNewResultDecision_TextChanged(object sender, EventArgs e)
+        {
+            if (Options[CurrentOption] != null)
+                Options[CurrentOption].Result = TextNewResultDecision.Text;
+        }
+        #endregion
     }
 }
