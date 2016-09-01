@@ -26,7 +26,12 @@ namespace OmarStoryBuilder
         private void Dialogs_Load(object sender, EventArgs e)
         {
             Main.ReloadDialogs();
-            GridDialogs.DataSource = Main.MainModel.AllDialogs;
+            GridDialogs.DataSource = Main.MainModel.AllDialogs.OrderByDescending(x => x.Id).ToList();
+
+            foreach (DataGridViewColumn column in GridDialogs.Columns)
+            {
+                GridDialogs.Columns[column.Name].SortMode = DataGridViewColumnSortMode.Automatic;
+            }
         }
 
         private void GridDialogs_DoubleClick(object sender, EventArgs e)

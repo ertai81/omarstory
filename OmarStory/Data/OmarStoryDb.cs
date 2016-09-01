@@ -72,6 +72,14 @@ namespace OmarStory.Data
             return code;
         }
 
+        public static int UpdateDialogData(IDbTransaction transaction, DialogData updatedDialog)
+        {
+            int code = DbTable<DialogData>.Insert(transaction, typeof(DialogData).Name,
+                new DbValues("Id, CharId, Text, Result, Condition", updatedDialog.Id,
+                updatedDialog.CharId, updatedDialog.Text, updatedDialog.Result, updatedDialog.Condition), replace: true);
+            return code;
+        }
+
         public static ICollection<DialogData> SelectDialogData(IDbConnection cnn)
         {
             try
@@ -122,6 +130,15 @@ namespace OmarStory.Data
             int code = DbTable<DecisionData>.Insert(transaction, typeof(DecisionData).Name,
                 new DbValues("Id, Option, Text, Result, Condition",
                 newDecision.Id, newDecision.Option, newDecision.Text, newDecision.Result, newDecision.Condition));
+            return code;
+        }
+
+        public static int UpdateDecisionData(IDbTransaction transaction, DecisionData updatedDialog)
+        {
+            int code = DbTable<DecisionData>.Insert(transaction, typeof(DecisionData).Name,
+                new DbValues("Id, Option, Text, Result, Condition",
+                updatedDialog.Id, updatedDialog.Option, updatedDialog.Text, 
+                updatedDialog.Result, updatedDialog.Condition), true);
             return code;
         }
 

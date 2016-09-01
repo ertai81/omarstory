@@ -101,6 +101,19 @@ namespace OmarStory.Converters
             return conditions;
         }
 
+        public static string FromListConditions(IEnumerable<Condition> conditions)
+        {
+            string stringConditions = String.Empty;
+
+            foreach (var condition in conditions)
+            {
+                stringConditions += condition.Raw + ".";
+            }
+            stringConditions = stringConditions.Substring(0, stringConditions.Length - 1);
+
+            return stringConditions;
+        }
+
         public static IEnumerable<Result> ToListResults(string str)
         {
             List<Result> result = new List<Result>();
@@ -111,6 +124,19 @@ namespace OmarStory.Converters
             }
 
             return result;
+        }
+
+        public static string FromListResults(IEnumerable<Result> results)
+        {
+            string stringResult = String.Empty;
+
+            foreach (var result in results)
+            {
+                stringResult += result.Raw + ".";
+            }
+            stringResult = stringResult.Substring(0, stringResult.Length - 1);
+
+            return stringResult;
         }
     }
 }

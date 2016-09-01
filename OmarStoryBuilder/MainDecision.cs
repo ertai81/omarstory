@@ -14,7 +14,6 @@ namespace OmarStoryBuilder
 {
     public partial class MainDecision : Form
     {
-        Model MainModel;
         Main MainView;
 
         List<DecisionData> Options;
@@ -52,20 +51,19 @@ namespace OmarStoryBuilder
             }
         }
 
-        public MainDecision(Model mainModel, Main mainView)
+        public MainDecision(Main mainView)
         {
             InitializeComponent();
 
-            MainModel = mainModel;
             MainView = mainView;
 
             Options = new List<DecisionData>();
             AddNewOption();
 
-            ListObjects.DataSource = MainModel.AllObjects.Select(x => x.Name).ToList();
-            ListCharacters.DataSource = MainModel.AllChars.Select(x => x.Name).ToList();
-            ListStatuses.DataSource = MainModel.AllStatuses.Select(x => x.Name).ToList();
-            ListBackground.DataSource = MainModel.AllBackgrounds.Select(x => x.Name).ToList();
+            ListObjects.DataSource = MainView.MainModel.AllObjects.Select(x => x.Name).ToList();
+            ListCharacters.DataSource = MainView.MainModel.AllChars.Select(x => x.Name).ToList();
+            ListStatuses.DataSource = MainView.MainModel.AllStatuses.Select(x => x.Name).ToList();
+            ListBackground.DataSource = MainView.MainModel.AllBackgrounds.Select(x => x.Name).ToList();
         }
 
         private void ButtonConditionItem_Click(object sender, EventArgs e)
@@ -88,21 +86,21 @@ namespace OmarStoryBuilder
             {
                 if (ListObjects.SelectedItem == null) { return; }
                 string selection = ListObjects.SelectedItem.ToString();
-                id = MainModel.AllObjects.Single(x => x.Name == selection).Id;
+                id = MainView.MainModel.AllObjects.Single(x => x.Name == selection).Id;
                 code = "O" + parameter;
             }
             else if (button.Name.Contains("Friend"))
             {
                 if (ListCharacters.SelectedItem == null) { return; }
                 string selection = ListCharacters.SelectedItem.ToString();
-                id = MainModel.AllChars.Single(x => x.Name == selection).Id;
+                id = MainView.MainModel.AllChars.Single(x => x.Name == selection).Id;
                 code = "F" + parameter;
             }
             else if (button.Name.Contains("Status"))
             {
                 if (ListStatuses.SelectedItem == null) { return; }
                 string selection = ListStatuses.SelectedItem.ToString();
-                id = MainModel.AllStatuses.Single(x => x.Name == selection).Id;
+                id = MainView.MainModel.AllStatuses.Single(x => x.Name == selection).Id;
                 code = "S" + parameter;
             }
 
@@ -146,21 +144,21 @@ namespace OmarStoryBuilder
             {
                 if (ListObjects.SelectedItem == null) { return; }
                 string selection = ListObjects.SelectedItem.ToString();
-                id = MainModel.AllObjects.Single(x => x.Name == selection).Id;
+                id = MainView.MainModel.AllObjects.Single(x => x.Name == selection).Id;
                 code = "O" + parameter;
             }
             else if (button.Name.Contains("Friend"))
             {
                 if (ListCharacters.SelectedItem == null) { return; }
                 string selection = ListCharacters.SelectedItem.ToString();
-                id = MainModel.AllChars.Single(x => x.Name == selection).Id;
+                id = MainView.MainModel.AllChars.Single(x => x.Name == selection).Id;
                 code = "F" + parameter;
             }
             else if (button.Name.Contains("Status"))
             {
                 if (ListStatuses.SelectedItem == null) { return; }
                 string selection = ListStatuses.SelectedItem.ToString();
-                id = MainModel.AllStatuses.Single(x => x.Name == selection).Id;
+                id = MainView.MainModel.AllStatuses.Single(x => x.Name == selection).Id;
                 code = "S" + parameter;
             }
 
@@ -171,7 +169,7 @@ namespace OmarStoryBuilder
         private void ButtonChangeBackground_Click(object sender, EventArgs e)
         {
             string selection = ListBackground.SelectedItem.ToString();
-            int idNewBackground = MainModel.AllBackgrounds.Single(x => x.Name == selection).Id;
+            int idNewBackground = MainView.MainModel.AllBackgrounds.Single(x => x.Name == selection).Id;
             string result = "B" + idNewBackground.ToString("0000");
 
             TextNewResultDecision.Text += isFirstResult ? result : "." + result;
@@ -217,11 +215,15 @@ namespace OmarStoryBuilder
 
         private void ResetAllOptions()
         {
+            MainView.MainModel.DialogToConnectTo = new DialogData();
+            TextConnectToStepText.Text = string.Empty;
+
             ComboOptions.Items.Clear();
             Options = new List<DecisionData>();
             AddNewOption();
 
             ResetFields();
+            MainView.ReloadItems();
         }
 
         private void ButtonAddNewDecision_Click(object sender, EventArgs e)
@@ -253,6 +255,12 @@ namespace OmarStoryBuilder
 
         private void TextNewTextDecision_TextChanged(object sender, EventArgs e)
         {
+            if (TextNewTextDecision.Text.Length > 190)
+            {
+                MessageBox.Show("Límite de caracteres alcanzado");
+                TextNewTextDecision.Text = TextNewTextDecision.Text.Substring(0, 190);
+            }
+
             if (Options[CurrentOption] != null)
                 Options[CurrentOption].Text = TextNewTextDecision.Text;
         }
@@ -271,11 +279,12 @@ namespace OmarStoryBuilder
 
         private void ButtonAddDecision_Click(object sender, EventArgs e)
         {
-            MainView.ReloadDecisions();
+            MainView.ReloadDecisions();            
+            int newId = MainView.MainModel.AllDecisions.Count == 0 ? 1 :
+                        MainView.MainModel.AllDecisions.Max(x => x.Id) + 1;
 
-            using (var session = DbContext.OpenSession(MainModel.DbProvider, MainModel.CnnString))
+            using (var session = DbContext.OpenSession(MainView.MainModel.DbProvider, MainView.MainModel.CnnString))
             {
-                int newId = MainView.MainModel.AllDecisions.Max(x => x.Id) + 1;
                 int optionNumber = 1;
 
                 DecisionData emptyDecision = new DecisionData();
@@ -287,7 +296,7 @@ namespace OmarStoryBuilder
                         continue;
                     }
 
-                    if (option.Text == string.Empty || option.Result == string.Empty)
+                    if (option.Text == string.Empty)
                     {
                         MessageBox.Show("Rellena todos los datos");
                         ComboOptions.SelectedIndex = Options.IndexOf(option);
@@ -304,14 +313,24 @@ namespace OmarStoryBuilder
 
             foreach (var option in Options)
             {
-                using (var session = DbContext.OpenSession(MainModel.DbProvider, MainModel.CnnString))
+                using (var session = DbContext.OpenSession(MainView.MainModel.DbProvider, MainView.MainModel.CnnString))
                 {
                     OmarStoryDb.AddDecisionData(session.Transaction, option);
                 }
             }
 
-            ResetAllOptions();
-            
+            //Updates previous Dialog or Decision if needed to
+            using (var session = DbContext.OpenSession(MainView.MainModel.DbProvider, MainView.MainModel.CnnString))
+            {
+                if (MainView.MainModel.DialogToConnectTo.Id != 0)
+                {
+                    MainView.MainModel.DialogToConnectTo.Result = MainView.UpdateResult
+                        (MainView.MainModel.DialogToConnectTo.Result, "Q" + newId.ToString("0000"));
+                    OmarStoryDb.UpdateDialogData(session.Transaction, MainView.MainModel.DialogToConnectTo);
+                }
+            }
+
+            ResetAllOptions();            
         }
 
         private void ButtonResetAll_Click(object sender, EventArgs e)
@@ -341,6 +360,22 @@ namespace OmarStoryBuilder
                 ComboOptions.SelectedIndex = index;
             }
 
+        }
+
+        private void ButtonConnectToDialog_Click(object sender, EventArgs e)
+        {
+            Dialogs dialogSelection = new Dialogs(MainView);
+            dialogSelection.ShowDialog();
+
+            if (dialogSelection.SelectedDialogId != 0)
+            {
+                int selectedDialogId = dialogSelection.SelectedDialogId;
+
+                MainView.MainModel.DecisionToConnectTo = new DecisionData();
+                MainView.MainModel.DialogToConnectTo = MainView.MainModel.AllDialogs.Single(x => x.Id == selectedDialogId);
+
+                TextConnectToStepText.Text = MainView.MainModel.DialogToConnectTo.Text;
+            }
         }
     }
 }

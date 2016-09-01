@@ -12,6 +12,9 @@ namespace OmarStoryBuilder
         public string DbProvider = "System.Data.SQLite";
         public string CnnString = "Data Source=..\\..\\..\\OmarStory\\bin\\OmarStoryData.db";
 
+        public DecisionData DecisionToConnectTo { get; set; }
+        public DialogData DialogToConnectTo { get; set; }
+
         public List<ObjectData> AllObjects { get; set; }
         public List<CharacterData> AllChars { get; set; }
         public List<StatusData> AllStatuses { get; set; }
@@ -27,6 +30,9 @@ namespace OmarStoryBuilder
             AllBackgrounds = new List<BackgroundData>();
             AllDialogs = new List<DialogData>();
             AllDecisions = new List<DecisionData>();
+
+            DecisionToConnectTo = new DecisionData();
+            DialogToConnectTo = new DialogData();
         }
     }
 }

@@ -124,6 +124,12 @@
   <data name="Inaki" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>inaki.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Mujer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>mujer.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Narrador" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>narrador.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Omar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>omar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
