@@ -273,5 +273,19 @@ namespace OmarStory.ViewModels
             }
         }
         #endregion
+
+        #region Save data
+        public void SaveData()
+        {
+            string stringSave = string.Empty;
+
+            //Save current dialog/decision
+            stringSave = 
+
+            //Save background
+
+            //Save items
+        }
+        #endregion
     }
 }

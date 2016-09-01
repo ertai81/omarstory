@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -56,6 +57,20 @@ namespace OmarStory.Views
                 return;
 
             MainView.AnalyzeSelectedDecision(selectedDecision);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.RestoreDirectory = true;
+            saveDialog.Title = "Guardar";
+            saveDialog.DefaultExt = ".omarsave";
+            saveDialog.Filter = "Omar files (*.omarsave)|*.omarsave";
+            DialogResult result = saveDialog.ShowDialog();
+
+            string file = saveDialog.FileName;
+
+            MainView.
         }
     }
 }

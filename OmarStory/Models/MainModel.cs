@@ -34,6 +34,20 @@ namespace OmarStory.Models
             NotifyPropertyChanged("CurrentInventory");
         }
 
+        private Step currentStep;
+        public Step CurrentStep
+        {
+            get
+            {
+                return currentStep;
+            }
+            set
+            {
+                currentStep = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private Step nextStep;
         public Step NextStep
         {

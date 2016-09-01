@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" DataContext="{Binding}"
              d:DesignHeight="700" d:DesignWidth="1000">
-    
+
     <UserControl.Resources>
         <Style TargetType="Border" x:Key="StyleDecisionHideIfEmpty" >
             <Style.Triggers>
@@ -21,7 +21,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="250" />
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.Column="0">
             <Border BorderThickness="5" BorderBrush="Black">
                 <Image x:Name="ImageBackground" Source="{Binding Model.CurrentBackground}" Stretch="Fill"/>
@@ -89,12 +89,13 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
             <GroupBox Grid.Row="0" x:Name="GroupObjects" Header="Objetos" Margin="5,5,5,5" Foreground="White">
                 <ListBox x:Name="ListObjects" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="16"
                          ItemsSource="{Binding Model.CurrentInventory.Objects, UpdateSourceTrigger=PropertyChanged}"
-                         DisplayMemberPath="Name">                    
+                         DisplayMemberPath="Name">
                 </ListBox>
             </GroupBox>
 
@@ -111,6 +112,16 @@
                          DisplayMemberPath="Name">
                 </ListBox>
             </GroupBox>
+
+            <Grid Grid.Row="3" Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="Guardar" Background="Black" Foreground="White" Margin="5,0,5,5" Click="Button_Click"/>
+                <Button Grid.Column="1" Content="Cargar" Background="Black" Foreground="White" Margin="5,0,5,5"/>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>
