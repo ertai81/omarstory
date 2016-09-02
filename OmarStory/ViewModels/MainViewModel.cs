@@ -64,6 +64,20 @@ namespace OmarStory.ViewModels
         #region Next step
         public void CallNextStep()
         {
+            //Analizes result
+            if (Model.CurrentStep.IsDecision())
+            {
+
+            }
+            else
+            {
+                DialogData currentDialog = RecoverDialog(Model.CurrentStep.Id);
+
+                //Analizes results (gets background changes, inventory changes and next step)
+                DialogActions actions = new DialogActions(this, currentDialog);
+                actions.AnalizeResults();
+            }
+
             //Current step will be replaced with the next step that it's going to load
             Model.CurrentStep = Model.NextStep;
 
@@ -130,6 +144,26 @@ namespace OmarStory.ViewModels
         #endregion
 
         #region Dialogs
+        public DialogData RecoverDialog(int id)
+        {
+            DialogData dialog = new DialogData();
+
+            try
+            {
+                using (var session = DbContext.OpenSession(Global.Global.DbProvider, Global.Global.CnnString))
+                {
+                    dialog = OmarStoryDb.SelectDialogData(session.Connection, id);
+                }
+            }
+            catch (Exception e)
+            {
+                ShowError(String.Format("Error buscando diálogo {0}{1}{2}", id.ToString(), Environment.NewLine, e.Message));
+                return dialog;
+            }
+
+            return dialog;
+        }
+
         public void ShowDialog(int id)
         {
             DialogData dialog;
@@ -163,9 +197,6 @@ namespace OmarStory.ViewModels
 
                 //Shows dialog in the screen
                 Model.CurrentText = dialog.Text;
-
-                //Analizes Result
-                actions.AnalizeResults();
             }
             catch(Exception e)
             {

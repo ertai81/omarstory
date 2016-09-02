@@ -87,19 +87,21 @@ namespace OmarStory.Actions
                 //Updates inventory if needed
                 if (result.IsInventoryUpdate)
                 {
-                    UpdateInventory(result);
+                    bool successfulUpdate = UpdateInventory(result);
 
-                    if (showPopUpMessages)
+                    if (successfulUpdate && showPopUpMessages && !result.IsStatusUpdate)
                     {
                         ShowMessage(result);
                     }
                 }
 
+                //Changes background
                 if (IsBackgroundChange(result.Code))
                 {
                     ViewModel.UpdateBackgound(Converters.Support.GetNameItem(result));
                 }
 
+                //Saves next step
                 if (IsNextStep(result.Code))
                 {
                     ViewModel.SaveNextStep(result);
@@ -117,8 +119,10 @@ namespace OmarStory.Actions
             return code == "B";
         }
 
-        public void UpdateInventory(Result result)
+        public bool UpdateInventory(Result result)
         {
+            bool successfulUpdate = false;
+
             switch (result.Code)
             {
                 case ("O"):
@@ -126,10 +130,12 @@ namespace OmarStory.Actions
                         if (result.Action == "R" && !Global.Inventory.Objects.Any(x => x.Id == result.Id))
                         {
                             Global.Inventory.Objects.Add(Global.AllItemsDB.AllObjects.Single(x => x.Id == result.Id));
+                            successfulUpdate = true;
                         }
-                        else if (Global.Inventory.Objects.Any(x => x.Id == result.Id))
+                        else if (result.Action == "L" && Global.Inventory.Objects.Any(x => x.Id == result.Id))
                         {
                             Global.Inventory.Objects.Remove(Global.AllItemsDB.AllObjects.Single(x => x.Id == result.Id));
+                            successfulUpdate = true;
                         }
                         break;
                     }
@@ -138,10 +144,12 @@ namespace OmarStory.Actions
                         if (result.Action == "R" && !Global.Inventory.Friends.Any(x => x.Id == result.Id))
                         {
                             Global.Inventory.Friends.Add(Global.AllItemsDB.AllChars.Single(x => x.Id == result.Id));
+                            successfulUpdate = true;
                         }
-                        else if (Global.Inventory.Friends.Any(x => x.Id == result.Id))
+                        else if (result.Action == "L" && Global.Inventory.Friends.Any(x => x.Id == result.Id))
                         {
                             Global.Inventory.Friends.Remove(Global.AllItemsDB.AllChars.Single(x => x.Id == result.Id));
+                            successfulUpdate = true;
                         }
                         break;
                     }
@@ -150,16 +158,20 @@ namespace OmarStory.Actions
                         if (result.Action == "R" && !Global.Inventory.Statuses.Any(x => x.Id == result.Id))
                         {
                             Global.Inventory.Statuses.Add(Global.AllItemsDB.AllStatuses.Single(x => x.Id == result.Id));
+                            successfulUpdate = true;
                         }
-                        else if (Global.Inventory.Statuses.Any(x => x.Id == result.Id))
+                        else if (result.Action == "L" && Global.Inventory.Statuses.Any(x => x.Id == result.Id))
                         {
                             Global.Inventory.Statuses.Remove(Global.AllItemsDB.AllStatuses.Single(x => x.Id == result.Id));
+                            successfulUpdate = true;
                         }
                         break;
                     }
                 default:
-                    return;
+                    return false;
             }
+
+            return successfulUpdate;
         }
 
         public void ShowMessage(Result result)

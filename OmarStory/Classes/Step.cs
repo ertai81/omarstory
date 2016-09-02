@@ -16,6 +16,7 @@ namespace OmarStory.Classes
                 return Raw.Substring(0, 1);
             }
         }
+
         public int Id
         {
             get

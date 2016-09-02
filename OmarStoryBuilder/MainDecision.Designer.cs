@@ -126,7 +126,7 @@
             // TextConnectToStepText
             // 
             this.TextConnectToStepText.Location = new System.Drawing.Point(11, 327);
-            this.TextConnectToStepText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TextConnectToStepText.Margin = new System.Windows.Forms.Padding(2);
             this.TextConnectToStepText.Multiline = true;
             this.TextConnectToStepText.Name = "TextConnectToStepText";
             this.TextConnectToStepText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -136,7 +136,7 @@
             // ButtonConnectToDialog
             // 
             this.ButtonConnectToDialog.Location = new System.Drawing.Point(12, 305);
-            this.ButtonConnectToDialog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonConnectToDialog.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonConnectToDialog.Name = "ButtonConnectToDialog";
             this.ButtonConnectToDialog.Size = new System.Drawing.Size(63, 21);
             this.ButtonConnectToDialog.TabIndex = 13;
@@ -467,7 +467,8 @@
             this.ClientSize = new System.Drawing.Size(901, 588);
             this.Controls.Add(this.DecisionGroup);
             this.Name = "MainDecision";
-            this.Text = "MainDecision";
+            this.ShowIcon = false;
+            this.Text = "Creador de decisiones";
             this.DecisionGroup.ResumeLayout(false);
             this.DecisionGroup.PerformLayout();
             this.ResumeLayout(false);
