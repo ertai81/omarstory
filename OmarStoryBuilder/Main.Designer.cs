@@ -37,14 +37,6 @@
             this.ButtonReset = new System.Windows.Forms.Button();
             this.ButtonNextDecision = new System.Windows.Forms.Button();
             this.ButtonNextDialog = new System.Windows.Forms.Button();
-            this.GroupItems = new System.Windows.Forms.GroupBox();
-            this.ButtonAddItem = new System.Windows.Forms.Button();
-            this.RadioTypeItemBackground = new System.Windows.Forms.RadioButton();
-            this.RadioTypeItemStatus = new System.Windows.Forms.RadioButton();
-            this.RadioTypeItemCharacter = new System.Windows.Forms.RadioButton();
-            this.RadioTypeItemObject = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.TextItemName = new System.Windows.Forms.TextBox();
             this.ButtonAddDialog = new System.Windows.Forms.Button();
             this.ButtonResultLosesFriend = new System.Windows.Forms.Button();
             this.ButtonResultLosesStatus = new System.Windows.Forms.Button();
@@ -72,6 +64,14 @@
             this.TextNewTextDialog = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.ComboCharacters = new System.Windows.Forms.ComboBox();
+            this.GroupItems = new System.Windows.Forms.GroupBox();
+            this.ButtonAddItem = new System.Windows.Forms.Button();
+            this.RadioTypeItemBackground = new System.Windows.Forms.RadioButton();
+            this.RadioTypeItemStatus = new System.Windows.Forms.RadioButton();
+            this.RadioTypeItemCharacter = new System.Windows.Forms.RadioButton();
+            this.RadioTypeItemObject = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TextItemName = new System.Windows.Forms.TextBox();
             this.ButtonAddDecision = new System.Windows.Forms.Button();
             this.DialogGroup.SuspendLayout();
             this.GroupItems.SuspendLayout();
@@ -134,7 +134,7 @@
             // ButtonConnectToDecision
             // 
             this.ButtonConnectToDecision.Location = new System.Drawing.Point(77, 383);
-            this.ButtonConnectToDecision.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonConnectToDecision.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonConnectToDecision.Name = "ButtonConnectToDecision";
             this.ButtonConnectToDecision.Size = new System.Drawing.Size(59, 22);
             this.ButtonConnectToDecision.TabIndex = 11;
@@ -145,7 +145,7 @@
             // TextConnectToStepText
             // 
             this.TextConnectToStepText.Location = new System.Drawing.Point(11, 430);
-            this.TextConnectToStepText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TextConnectToStepText.Margin = new System.Windows.Forms.Padding(2);
             this.TextConnectToStepText.Multiline = true;
             this.TextConnectToStepText.Name = "TextConnectToStepText";
             this.TextConnectToStepText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -155,7 +155,7 @@
             // ButtonConnectToLastDialog
             // 
             this.ButtonConnectToLastDialog.Location = new System.Drawing.Point(10, 406);
-            this.ButtonConnectToLastDialog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonConnectToLastDialog.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonConnectToLastDialog.Name = "ButtonConnectToLastDialog";
             this.ButtonConnectToLastDialog.Size = new System.Drawing.Size(63, 21);
             this.ButtonConnectToLastDialog.TabIndex = 9;
@@ -166,7 +166,7 @@
             // ButtonConnectToDialog
             // 
             this.ButtonConnectToDialog.Location = new System.Drawing.Point(10, 384);
-            this.ButtonConnectToDialog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonConnectToDialog.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonConnectToDialog.Name = "ButtonConnectToDialog";
             this.ButtonConnectToDialog.Size = new System.Drawing.Size(63, 21);
             this.ButtonConnectToDialog.TabIndex = 9;
@@ -203,92 +203,6 @@
             this.ButtonNextDialog.Text = "Diálogo posterior";
             this.ButtonNextDialog.UseVisualStyleBackColor = true;
             this.ButtonNextDialog.Click += new System.EventHandler(this.ButtonNextDialog_Click);
-            // 
-            // GroupItems
-            // 
-            this.GroupItems.Controls.Add(this.ButtonAddItem);
-            this.GroupItems.Controls.Add(this.RadioTypeItemBackground);
-            this.GroupItems.Controls.Add(this.RadioTypeItemStatus);
-            this.GroupItems.Controls.Add(this.RadioTypeItemCharacter);
-            this.GroupItems.Controls.Add(this.RadioTypeItemObject);
-            this.GroupItems.Controls.Add(this.label1);
-            this.GroupItems.Controls.Add(this.TextItemName);
-            this.GroupItems.Location = new System.Drawing.Point(856, 12);
-            this.GroupItems.Name = "GroupItems";
-            this.GroupItems.Size = new System.Drawing.Size(151, 159);
-            this.GroupItems.TabIndex = 1;
-            this.GroupItems.TabStop = false;
-            this.GroupItems.Text = "Items";
-            // 
-            // ButtonAddItem
-            // 
-            this.ButtonAddItem.Location = new System.Drawing.Point(8, 56);
-            this.ButtonAddItem.Name = "ButtonAddItem";
-            this.ButtonAddItem.Size = new System.Drawing.Size(75, 23);
-            this.ButtonAddItem.TabIndex = 3;
-            this.ButtonAddItem.Text = "Añadir";
-            this.ButtonAddItem.UseVisualStyleBackColor = true;
-            this.ButtonAddItem.Click += new System.EventHandler(this.ButtonAddItem_Click);
-            // 
-            // RadioTypeItemBackground
-            // 
-            this.RadioTypeItemBackground.AutoSize = true;
-            this.RadioTypeItemBackground.Location = new System.Drawing.Point(10, 130);
-            this.RadioTypeItemBackground.Name = "RadioTypeItemBackground";
-            this.RadioTypeItemBackground.Size = new System.Drawing.Size(55, 17);
-            this.RadioTypeItemBackground.TabIndex = 2;
-            this.RadioTypeItemBackground.TabStop = true;
-            this.RadioTypeItemBackground.Text = "Fondo";
-            this.RadioTypeItemBackground.UseVisualStyleBackColor = true;
-            // 
-            // RadioTypeItemStatus
-            // 
-            this.RadioTypeItemStatus.AutoSize = true;
-            this.RadioTypeItemStatus.Location = new System.Drawing.Point(10, 107);
-            this.RadioTypeItemStatus.Name = "RadioTypeItemStatus";
-            this.RadioTypeItemStatus.Size = new System.Drawing.Size(58, 17);
-            this.RadioTypeItemStatus.TabIndex = 2;
-            this.RadioTypeItemStatus.TabStop = true;
-            this.RadioTypeItemStatus.Text = "Estado";
-            this.RadioTypeItemStatus.UseVisualStyleBackColor = true;
-            // 
-            // RadioTypeItemCharacter
-            // 
-            this.RadioTypeItemCharacter.AutoSize = true;
-            this.RadioTypeItemCharacter.Location = new System.Drawing.Point(68, 131);
-            this.RadioTypeItemCharacter.Name = "RadioTypeItemCharacter";
-            this.RadioTypeItemCharacter.Size = new System.Drawing.Size(72, 17);
-            this.RadioTypeItemCharacter.TabIndex = 2;
-            this.RadioTypeItemCharacter.TabStop = true;
-            this.RadioTypeItemCharacter.Text = "Personaje";
-            this.RadioTypeItemCharacter.UseVisualStyleBackColor = true;
-            // 
-            // RadioTypeItemObject
-            // 
-            this.RadioTypeItemObject.AutoSize = true;
-            this.RadioTypeItemObject.Location = new System.Drawing.Point(68, 107);
-            this.RadioTypeItemObject.Name = "RadioTypeItemObject";
-            this.RadioTypeItemObject.Size = new System.Drawing.Size(56, 17);
-            this.RadioTypeItemObject.TabIndex = 2;
-            this.RadioTypeItemObject.TabStop = true;
-            this.RadioTypeItemObject.Text = "Objeto";
-            this.RadioTypeItemObject.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Nombre:";
-            // 
-            // TextItemName
-            // 
-            this.TextItemName.Location = new System.Drawing.Point(8, 32);
-            this.TextItemName.Name = "TextItemName";
-            this.TextItemName.Size = new System.Drawing.Size(100, 20);
-            this.TextItemName.TabIndex = 0;
             // 
             // ButtonAddDialog
             // 
@@ -543,13 +457,99 @@
             this.ComboCharacters.Size = new System.Drawing.Size(127, 21);
             this.ComboCharacters.TabIndex = 0;
             // 
+            // GroupItems
+            // 
+            this.GroupItems.Controls.Add(this.ButtonAddItem);
+            this.GroupItems.Controls.Add(this.RadioTypeItemBackground);
+            this.GroupItems.Controls.Add(this.RadioTypeItemStatus);
+            this.GroupItems.Controls.Add(this.RadioTypeItemCharacter);
+            this.GroupItems.Controls.Add(this.RadioTypeItemObject);
+            this.GroupItems.Controls.Add(this.label1);
+            this.GroupItems.Controls.Add(this.TextItemName);
+            this.GroupItems.Location = new System.Drawing.Point(856, 12);
+            this.GroupItems.Name = "GroupItems";
+            this.GroupItems.Size = new System.Drawing.Size(151, 159);
+            this.GroupItems.TabIndex = 1;
+            this.GroupItems.TabStop = false;
+            this.GroupItems.Text = "Items";
+            // 
+            // ButtonAddItem
+            // 
+            this.ButtonAddItem.Location = new System.Drawing.Point(8, 56);
+            this.ButtonAddItem.Name = "ButtonAddItem";
+            this.ButtonAddItem.Size = new System.Drawing.Size(75, 23);
+            this.ButtonAddItem.TabIndex = 3;
+            this.ButtonAddItem.Text = "Añadir";
+            this.ButtonAddItem.UseVisualStyleBackColor = true;
+            this.ButtonAddItem.Click += new System.EventHandler(this.ButtonAddItem_Click);
+            // 
+            // RadioTypeItemBackground
+            // 
+            this.RadioTypeItemBackground.AutoSize = true;
+            this.RadioTypeItemBackground.Location = new System.Drawing.Point(10, 130);
+            this.RadioTypeItemBackground.Name = "RadioTypeItemBackground";
+            this.RadioTypeItemBackground.Size = new System.Drawing.Size(55, 17);
+            this.RadioTypeItemBackground.TabIndex = 2;
+            this.RadioTypeItemBackground.TabStop = true;
+            this.RadioTypeItemBackground.Text = "Fondo";
+            this.RadioTypeItemBackground.UseVisualStyleBackColor = true;
+            // 
+            // RadioTypeItemStatus
+            // 
+            this.RadioTypeItemStatus.AutoSize = true;
+            this.RadioTypeItemStatus.Location = new System.Drawing.Point(10, 107);
+            this.RadioTypeItemStatus.Name = "RadioTypeItemStatus";
+            this.RadioTypeItemStatus.Size = new System.Drawing.Size(58, 17);
+            this.RadioTypeItemStatus.TabIndex = 2;
+            this.RadioTypeItemStatus.TabStop = true;
+            this.RadioTypeItemStatus.Text = "Estado";
+            this.RadioTypeItemStatus.UseVisualStyleBackColor = true;
+            // 
+            // RadioTypeItemCharacter
+            // 
+            this.RadioTypeItemCharacter.AutoSize = true;
+            this.RadioTypeItemCharacter.Location = new System.Drawing.Point(68, 131);
+            this.RadioTypeItemCharacter.Name = "RadioTypeItemCharacter";
+            this.RadioTypeItemCharacter.Size = new System.Drawing.Size(72, 17);
+            this.RadioTypeItemCharacter.TabIndex = 2;
+            this.RadioTypeItemCharacter.TabStop = true;
+            this.RadioTypeItemCharacter.Text = "Personaje";
+            this.RadioTypeItemCharacter.UseVisualStyleBackColor = true;
+            // 
+            // RadioTypeItemObject
+            // 
+            this.RadioTypeItemObject.AutoSize = true;
+            this.RadioTypeItemObject.Location = new System.Drawing.Point(68, 107);
+            this.RadioTypeItemObject.Name = "RadioTypeItemObject";
+            this.RadioTypeItemObject.Size = new System.Drawing.Size(56, 17);
+            this.RadioTypeItemObject.TabIndex = 2;
+            this.RadioTypeItemObject.TabStop = true;
+            this.RadioTypeItemObject.Text = "Objeto";
+            this.RadioTypeItemObject.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Nombre:";
+            // 
+            // TextItemName
+            // 
+            this.TextItemName.Location = new System.Drawing.Point(8, 32);
+            this.TextItemName.Name = "TextItemName";
+            this.TextItemName.Size = new System.Drawing.Size(100, 20);
+            this.TextItemName.TabIndex = 0;
+            // 
             // ButtonAddDecision
             // 
             this.ButtonAddDecision.Location = new System.Drawing.Point(959, 542);
             this.ButtonAddDecision.Name = "ButtonAddDecision";
             this.ButtonAddDecision.Size = new System.Drawing.Size(75, 43);
             this.ButtonAddDecision.TabIndex = 9;
-            this.ButtonAddDecision.Text = "Builder de decisiones";
+            this.ButtonAddDecision.Text = "Creador de decisiones";
             this.ButtonAddDecision.UseVisualStyleBackColor = true;
             this.ButtonAddDecision.Click += new System.EventHandler(this.ButtonAddDecision_Click);
             // 
@@ -563,7 +563,7 @@
             this.Controls.Add(this.GroupItems);
             this.Name = "Main";
             this.ShowIcon = false;
-            this.Text = "Builder";
+            this.Text = "Creador de diálogos";
             this.Load += new System.EventHandler(this.Main_Load);
             this.DialogGroup.ResumeLayout(false);
             this.DialogGroup.PerformLayout();

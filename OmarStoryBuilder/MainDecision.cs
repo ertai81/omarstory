@@ -167,7 +167,7 @@ namespace OmarStoryBuilder
                 return;
             }
 
-            string parameter = "G";
+            string parameter = "R";
             if (button.Name.Contains("Loses"))
             {
                 parameter = "L";

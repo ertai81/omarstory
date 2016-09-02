@@ -49,8 +49,6 @@ namespace OmarStory.ViewModels
             Model.DecisionsVisibility = System.Windows.Visibility.Collapsed;
 
             GetAllItems();
-
-            //Triggers
         }
 
         public void NewGame()
@@ -64,16 +62,32 @@ namespace OmarStory.ViewModels
         }
 
         #region Next step
-        public Step NextStep
+        public void CallNextStep()
         {
-            get
+            //Analizes result
+            if (Model.CurrentStep.IsDecision())
             {
-                return Model.NextStep;
+
             }
-            set
+            else
             {
-                Model.NextStep = value;
-                NotifyPropertyChanged();
+                DialogData currentDialog = RecoverDialog(Model.CurrentStep.Id);
+
+                //Analizes results (gets background changes, inventory changes and next step)
+                DialogActions actions = new DialogActions(this, currentDialog);
+                actions.AnalizeResults();
+            }
+
+            //Current step will be replaced with the next step that it's going to load
+            Model.CurrentStep = Model.NextStep;
+
+            if (IsNextStepDecision())
+            {
+                ShowDecision(Model.NextStep.Id);
+            }
+            else
+            {
+                ShowDialog(Model.NextStep.Id);
             }
         }
 
@@ -130,6 +144,26 @@ namespace OmarStory.ViewModels
         #endregion
 
         #region Dialogs
+        public DialogData RecoverDialog(int id)
+        {
+            DialogData dialog = new DialogData();
+
+            try
+            {
+                using (var session = DbContext.OpenSession(Global.Global.DbProvider, Global.Global.CnnString))
+                {
+                    dialog = OmarStoryDb.SelectDialogData(session.Connection, id);
+                }
+            }
+            catch (Exception e)
+            {
+                ShowError(String.Format("Error buscando diálogo {0}{1}{2}", id.ToString(), Environment.NewLine, e.Message));
+                return dialog;
+            }
+
+            return dialog;
+        }
+
         public void ShowDialog(int id)
         {
             DialogData dialog;
@@ -163,9 +197,6 @@ namespace OmarStory.ViewModels
 
                 //Shows dialog in the screen
                 Model.CurrentText = dialog.Text;
-
-                //Analizes Result
-                actions.AnalizeResults();
             }
             catch(Exception e)
             {
@@ -273,20 +304,21 @@ namespace OmarStory.ViewModels
             //Save background
             stringSave += "B" + Model.CurrentBackground.Id.ToString("0000") + ".";
 
-            //Save items
+            //Save items with "R" after the type so that the system 
+            //understands that the player has to receive the item
             foreach(var obj in Global.Inventory.Objects)
             {
-                stringSave += "O" + obj.Id.ToString("0000") + ".";
+                stringSave += "OR" + obj.Id.ToString("0000") + ".";
             }
 
             foreach (var friends in Global.Inventory.Friends)
             {
-                stringSave += "F" + friends.Id.ToString("0000") + ".";
+                stringSave += "FR" + friends.Id.ToString("0000") + ".";
             }
 
             foreach (var status in Global.Inventory.Statuses)
             {
-                stringSave += "S" + status.Id.ToString("0000") + ".";
+                stringSave += "SR" + status.Id.ToString("0000") + ".";
             }
 
             string encryptString = Crypto.EncryptStringAES(stringSave, "ogZ7aYQCv6zCky");
@@ -317,29 +349,8 @@ namespace OmarStory.ViewModels
             }
             string loadData = Crypto.DecryptStringAES(encryptedString, "ogZ7aYQCv6zCky");
 
-            List<Result> results = Converters.Deserialize.ToListResults(loadData).ToList();
-
-            foreach (var result in results)
-            {
-                switch (result.Code)
-                {
-                    case "D":
-                    case "Q":
-                        //Save in next step
-                        break;
-
-                    case "B":
-                        //Save in current background
-                        break;
-
-                    default:
-                        //Save in its correspondent item list
-                        break;
-                }
-            }
-            
-            //TODO: Move "NextStep()" to MainViewModel (here)
-            //NextStep();
+            DialogActions loadActions = new DialogActions(this, new DialogData() { Result = loadData });
+            loadActions.AnalizeResults(false);
         }
         #endregion
     }

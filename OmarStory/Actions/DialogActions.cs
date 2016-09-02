@@ -58,9 +58,9 @@ namespace OmarStory.Actions
         #endregion
 
         #region Result
-        public void AnalizeResults()
+        public void AnalizeResults(bool ShowPopUpMessages = true)
         {
-            AnalizeResults(ViewModel, Dialog.Result);
+            AnalizeResults(ViewModel, Dialog.Result, ShowPopUpMessages);
         }
         #endregion
     }

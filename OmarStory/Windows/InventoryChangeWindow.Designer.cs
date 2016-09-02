@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InventoryChangeWindow));
             this.TextInventoryChange = new System.Windows.Forms.RichTextBox();
             this.ButtonOK = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -39,10 +40,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextInventoryChange.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextInventoryChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextInventoryChange.Location = new System.Drawing.Point(12, 12);
-            this.TextInventoryChange.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.TextInventoryChange.Location = new System.Drawing.Point(9, 10);
+            this.TextInventoryChange.Margin = new System.Windows.Forms.Padding(2);
             this.TextInventoryChange.Name = "TextInventoryChange";
-            this.TextInventoryChange.Size = new System.Drawing.Size(255, 113);
+            this.TextInventoryChange.Size = new System.Drawing.Size(191, 92);
             this.TextInventoryChange.TabIndex = 0;
             this.TextInventoryChange.Text = "";
             // 
@@ -50,10 +51,9 @@
             // 
             this.ButtonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonOK.Location = new System.Drawing.Point(167, 132);
-            this.ButtonOK.Margin = new System.Windows.Forms.Padding(4);
+            this.ButtonOK.Location = new System.Drawing.Point(125, 107);
             this.ButtonOK.Name = "ButtonOK";
-            this.ButtonOK.Size = new System.Drawing.Size(100, 28);
+            this.ButtonOK.Size = new System.Drawing.Size(75, 23);
             this.ButtonOK.TabIndex = 1;
             this.ButtonOK.Text = "¡Tu culo!";
             this.ButtonOK.UseVisualStyleBackColor = true;
@@ -61,18 +61,18 @@
             // 
             // InventoryChangeWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(279, 165);
+            this.ClientSize = new System.Drawing.Size(209, 134);
             this.Controls.Add(this.ButtonOK);
             this.Controls.Add(this.TextInventoryChange);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InventoryChangeWindow";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Inventario";
             this.ResumeLayout(false);

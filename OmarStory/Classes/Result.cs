@@ -13,14 +13,6 @@ namespace OmarStory.Classes
             Raw = raw;
         }
 
-        public bool IsInventoryUpdate
-        {
-            get
-            {
-                return Raw.Length > 5;
-            }
-        }
-
         public string Raw { get; set; }
 
         public string Code
@@ -45,6 +37,22 @@ namespace OmarStory.Classes
             {
                 int indexBegin = IsInventoryUpdate ? 2 : 1;
                 return Converters.Support.ToInt(Raw.Substring(indexBegin,4));
+            }
+        }
+
+        public bool IsInventoryUpdate
+        {
+            get
+            {
+                return Raw.Length > 5;
+            }
+        }
+
+        public bool IsStatusUpdate
+        {
+            get
+            {
+                return Code == "S";
             }
         }
     }

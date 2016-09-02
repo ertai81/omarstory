@@ -41,7 +41,7 @@ namespace OmarStory
         {
             if (e.Key == Key.Enter)
             {
-                NextStep();
+                CallNextStep();
             }
         }
 
@@ -50,30 +50,16 @@ namespace OmarStory
             MainViewModel mainView = DataContext as MainViewModel;
             if (mainView != null)
             {
-                //Advance only if app is not waiting for a user input (decision)
-                if (!mainView.IsWaitingForDecision)
-                {
-                    NextStep();
-                }
+                CallNextStep();
             }
         }
 
-        private void NextStep()
+        private void CallNextStep()
         {
             MainViewModel mainView = DataContext as MainViewModel;
             if (mainView != null)
             {
-                //Current step will be replaced with the next step that it's going to load
-                mainView.Model.CurrentStep = mainView.Model.NextStep;
-
-                if (mainView.IsNextStepDecision())
-                {
-                    mainView.ShowDecision(mainView.NextStep.Id);
-                }
-                else
-                {
-                    mainView.ShowDialog(mainView.NextStep.Id);
-                }
+                mainView.CallNextStep();
             }
         }
     }
