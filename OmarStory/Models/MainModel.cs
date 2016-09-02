@@ -107,8 +107,6 @@ namespace OmarStory.Models
         #endregion
 
         #region  Properties for the General View
-        public bool IsWaitingForDecision { get; set; }
-        
         private Visibility decisionsVisibility;
         public Visibility DecisionsVisibility
         {

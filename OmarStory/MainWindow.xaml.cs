@@ -37,7 +37,7 @@ namespace OmarStory
             this.DataContext = MainView;
         }
 
-        private void AdvanceText(object sender, KeyEventArgs e)
+        private void AnyKeyPressed(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -59,7 +59,10 @@ namespace OmarStory
             MainViewModel mainView = DataContext as MainViewModel;
             if (mainView != null)
             {
-                mainView.CallNextStep();
+                if (!Global.Global.IsLoadingGame)
+                {
+                    mainView.CallNextStep();
+                }
             }
         }
     }

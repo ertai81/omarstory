@@ -54,6 +54,13 @@ namespace OmarStoryBuilder
             if (resultOriginal != string.Empty)
             {
                 List<Result> results = Deserialize.ToListResults(resultOriginal).ToList();
+
+                //No results are dialogs or decisions, just attach the new next step at the end
+                if (!results.Any(x => x.Code == "D" || x.Code == "Q"))
+                {
+                    return resultOriginal + "." + newNextStep;
+                }
+
                 foreach (var result in results)
                 {
                     if (result.Code == "D" || result.Code == "Q")

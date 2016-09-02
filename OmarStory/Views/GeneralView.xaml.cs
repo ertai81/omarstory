@@ -2,6 +2,7 @@
 using OmarStory.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,6 +64,8 @@ namespace OmarStory.Views
                 return;
 
             System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            string combinedPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "..\\Data");
+            saveFileDialog.InitialDirectory = System.IO.Path.GetFullPath(combinedPath);
             saveFileDialog.RestoreDirectory = true;
             saveFileDialog.Title = "Guardar";
             saveFileDialog.DefaultExt = ".omarsave";
@@ -80,7 +83,10 @@ namespace OmarStory.Views
                 return;
 
             System.Windows.Forms.OpenFileDialog loadFileDialog = new System.Windows.Forms.OpenFileDialog();
+            string combinedPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "..\\Data");
+            loadFileDialog.InitialDirectory = System.IO.Path.GetFullPath(combinedPath);
             loadFileDialog.RestoreDirectory = true;
+            loadFileDialog.InitialDirectory = "..\\Data";
             loadFileDialog.Title = "Cargar";
             loadFileDialog.DefaultExt = ".omarsave";
             loadFileDialog.Filter = "Omar files (*.omarsave)|*.omarsave";

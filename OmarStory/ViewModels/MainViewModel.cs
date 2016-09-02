@@ -45,8 +45,12 @@ namespace OmarStory.ViewModels
         public void Initialize()
         {
             //Variables
-            Model.IsWaitingForDecision = false;
+            IsWaitingForDecision = false;
             Model.DecisionsVisibility = System.Windows.Visibility.Collapsed;
+
+            Inventory.Friends = new ObservableCollection<CharacterData>();
+            Inventory.Objects = new ObservableCollection<ObjectData>();
+            Inventory.Statuses = new ObservableCollection<StatusData>();
 
             GetAllItems();
         }
@@ -64,18 +68,21 @@ namespace OmarStory.ViewModels
         #region Next step
         public void CallNextStep()
         {
-            //Analizes result
-            if (Model.CurrentStep.IsDecision())
+            if (!IsLoadingGame)
             {
+                //Analizes result
+                if (Model.CurrentStep.IsDecision())
+                {
 
-            }
-            else
-            {
-                DialogData currentDialog = RecoverDialog(Model.CurrentStep.Id);
+                }
+                else
+                {
+                    DialogData currentDialog = RecoverDialog(Model.CurrentStep.Id);
 
-                //Analizes results (gets background changes, inventory changes and next step)
-                DialogActions actions = new DialogActions(this, currentDialog);
-                actions.AnalizeResults();
+                    //Analizes results (gets background changes, inventory changes and next step)
+                    DialogActions actions = new DialogActions(this, currentDialog);
+                    actions.AnalizeResults();
+                }
             }
 
             //Current step will be replaced with the next step that it's going to load
@@ -210,11 +217,11 @@ namespace OmarStory.ViewModels
         {
             get
             {
-                return Model.IsWaitingForDecision;
+                return Global.Global.IsWaitingForDecision;
             }
             set
             {
-                Model.IsWaitingForDecision = value;
+                Global.Global.IsWaitingForDecision = value;
                 NotifyPropertyChanged();
             }
         }
@@ -294,6 +301,19 @@ namespace OmarStory.ViewModels
         #endregion
 
         #region Save/Load data
+        public bool IsLoadingGame
+        {
+            get
+            {
+                return Global.Global.IsLoadingGame;
+            }
+            set
+            {
+                Global.Global.IsLoadingGame = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public void SaveData(string file)
         {
             string stringSave = string.Empty;
@@ -349,8 +369,15 @@ namespace OmarStory.ViewModels
             }
             string loadData = Crypto.DecryptStringAES(encryptedString, "ogZ7aYQCv6zCky");
 
+            //Initialize layout and variables
+            Initialize();
+
             DialogActions loadActions = new DialogActions(this, new DialogData() { Result = loadData });
             loadActions.AnalizeResults(false);
+
+            IsLoadingGame = true;
+            CallNextStep();
+            IsLoadingGame = false;
         }
         #endregion
     }
